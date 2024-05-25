@@ -37,6 +37,7 @@ export default function EditProductComponent(){
         <form>
         <TextField fullWidth name="name" label="Name" id="fullWidth" onChange={updateProduct} value={product.name}/><br /><br /><br />
         <TextField fullWidth label="Description" name="description" id="fullWidth" onChange={updateProduct} value={product.description}/><br /><br /><br />
+        <TextField  label="Image URL" name="image" fullWidth id="fullWidth"onChange={updateProduct} value={product.image}/><br /><br /><br />
         <TextField  label="Price" name="price" id="outlined-basic" onChange={updateProduct} value={product.price}/>&nbsp;&nbsp;&nbsp;
         <TextField  label="Quantity" name="quantity" id="outlined-basic" onChange={updateProduct} value={product.quantity}/>&nbsp;&nbsp;&nbsp;
         <TextField  label="Category" name="category" id="outlined-basic" onChange={updateProduct} value={product.category}/><br /><br /><br />

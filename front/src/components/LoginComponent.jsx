@@ -31,11 +31,12 @@ export default function LoginComponent(){
             if(res==""){
                 console.log("not a valid user");
                 setValid(true)
+                
                 navigate("/login")   
             }
             else{
                 console.log("welcome")
-                
+                setValid(false)
                 navigate(`/products/${res[0]._id}`)
             }
     

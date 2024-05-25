@@ -8,31 +8,32 @@ import { useNavigate, useParams } from "react-router-dom";
 import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
-}));
+import Typography from '@mui/material/Typography';
 
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  '&:last-child td, &:last-child th': {
-    border: 0,
-  },
-}));
+// const StyledTableCell = styled(TableCell)(({ theme }) => ({
+//   [`&.${tableCellClasses.head}`]: {
+//     backgroundColor: theme.palette.common.black,
+//     color: theme.palette.common.white,
+//   },
+//   [`&.${tableCellClasses.body}`]: {
+//     fontSize: 14,
+//   },
+// }));
+
+// const StyledTableRow = styled(TableRow)(({ theme }) => ({
+//   '&:nth-of-type(odd)': {
+//     backgroundColor: theme.palette.action.hover,
+//   },
+//   // hide last border
+//   '&:last-child td, &:last-child th': {
+//     border: 0,
+//   },
+// }));
 export default function ProductComponent(){
   let oid="";
   const {id:uid}=useParams()
@@ -44,12 +45,12 @@ export default function ProductComponent(){
             console.log(response.data);
             setProducts(response.data)})
     },[])
-    function deleteProduct(id){
-        axios.delete(`http://localhost:8082/api/products/${id}`).then(res=>{
-            console.log(res.data);
-            setProducts(products.filter((p)=>p._id!=id))
-        })
-    }
+    // function deleteProduct(id){
+    //     axios.delete(`http://localhost:8082/api/products/${id}`).then(res=>{
+    //         console.log(res.data);
+    //         setProducts(products.filter((p)=>p._id!=id))
+    //     })
+    // }
    
  
     function addProduct(id){
@@ -80,9 +81,9 @@ export default function ProductComponent(){
     }
     return(
         <>
-            
+           <div style={{display:"flex",flexWrap:"wrap",justifyContent:"flex-start",alignContent:"flex-start"}}> 
           {products.map((p)=> (
-              <Card sx={{ maxWidth: 345 }}>
+              <Card sx={{ maxWidth: 345 }} style={{margin:20,textAlign:"left",width:500}}>
               <CardMedia
                 sx={{ height: 140 }}
                 image={p.image}
@@ -93,23 +94,23 @@ export default function ProductComponent(){
                 {p.name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                {p.description}
-                {p.price}
-                {p.quantity}
-                {p.category}
+                Description: {p.description}<br/>
+                Price: {p.price}<br/>
+                Quantity: {p.quantity}<br/>
+                Category: {p.category}
                 </Typography>
               </CardContent>
               <CardActions>
-              <Button variant="contained" size="small" type='submit' onClick={()=>navigate(`/products/edit/${p._id}`)}>Edit</Button>
-              <Button variant="contained" size="small" type='submit' onClick={()=>deleteProduct(p._id)}>Delete</Button>
+              {/* <Button variant="contained" size="small" type='submit' onClick={()=>navigate(`/products/edit/${p._id}`)}>Edit</Button>
+              <Button variant="contained" size="small" type='submit' onClick={()=>deleteProduct(p._id)}>Delete</Button> */}
               {p.quantity>0 ? <Button variant="contained" size="small" type='submit' onClick={()=>addProduct(p._id)}>+</Button>:"nostock"}
               </CardActions>
               </Card>
           ))}
-     
-    <form action="/product/new">
+        </div>
+    {/* <form action="/product/new">
     <Button variant="contained" type='submit'>Add Product</Button>
-    </form>
+    </form> */}
     {add?<Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
   Product Added Scuuessfully
 </Alert>:""}
@@ -121,49 +122,3 @@ export default function ProductComponent(){
         </>
     )
 }
-
-
-
-
-
-
-
-// import { useState,useEffect } from "react";
-// import axios from 'axios'
-// export default function ProductComponent(){
-//     let [products,setProducts]=useState([]);
-//     useEffect(function updateProducts(){
-//         axios.get("http://localhost:8082/api/products").then(response=> {
-//             console.log(response.data);
-//             setProducts(response.data)})
-//     },[])
-//     return(
-//         <>
-//             <table>
-//                 <thead>
-//                     <tr>
-//                         <th>Name</th>
-//                         <th>Description</th>
-//                         <th>Price</th>
-//                         <th>Quantity</th>
-//                         <th>Category</th>
-//                     </tr>
-//                 </thead>
-//                 <tbody>
-//                 {
-//                     products.map((p)=>
-                        
-//                         <tr>
-//                             <td>{p.name}</td>
-//                             <td>{p.description}</td>
-//                             <td>{p.price}</td>
-//                             <td>{p.quantity}</td>
-//                             <td>{p.category}</td>
-//                         </tr>
-//                     )
-//                 }
-//                 </tbody>
-//             </table>
-//         </>
-//     )
-// }

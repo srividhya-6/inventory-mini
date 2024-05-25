@@ -34,12 +34,12 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export default function AllOrdersComponent() {
     const navigate = useNavigate();
     const [orders, setOrders] = useState([]);
-    let {id}=useParams()
+    
     useEffect(() => {
-        axios.get(`http://localhost:8082/api/orders/${id}`)
+        axios.get(`http://localhost:8082/api/orders`)
             .then(response => {
-                console.log(response.data.items);
-                setOrders(response.data.items);
+                console.log(response.data);
+                setOrders(response.data);
             })
             .catch(error => {
                 console.error('Error fetching orders:', error);
@@ -48,7 +48,12 @@ export default function AllOrdersComponent() {
 
     return (
         <>
-            <TableContainer component={Paper}>
+            {orders.map((o) => (
+                
+                <div>
+                        <p>OrderId : {o._id}</p>
+                        <p>UserId : {o.userId}</p>
+                <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 700 }} aria-label="customized table">
                     <TableHead>
                         <TableRow>
@@ -58,7 +63,9 @@ export default function AllOrdersComponent() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {orders.map((order) => (
+                        
+                            
+                            {o.items.map((order)=>
                             <StyledTableRow>
                                 <StyledTableCell component="th" scope="row">
                                     {order.productId}
@@ -66,12 +73,13 @@ export default function AllOrdersComponent() {
                                 <StyledTableCell align="right">{order.quantity}</StyledTableCell>
                               
                             </StyledTableRow>
-                        ))}
+                        )}
+                       
                     </TableBody>
                 </Table>
             </TableContainer><br /><br />
-
-            <Button variant="contained">Place Order</Button>
+            </div>))}
+           
         </>
     );
 }
