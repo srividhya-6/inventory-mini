@@ -1,14 +1,17 @@
 
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { useState } from 'react';
+
 import { useNavigate } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
 import axios from 'axios';
+import { useState ,useContext} from 'react';
+
 import Stack from '@mui/material/Stack';
 export default function LoginComponent(){
     let navigate=useNavigate()
     let [valid,setValid]=useState(false)
+    const { auth ,setAuth} = useContext(AuthContext);
     let [user,setUser]=useState({
         email:"",
         password:""
@@ -35,6 +38,9 @@ export default function LoginComponent(){
                 navigate("/login")   
             }
             else{
+                setAuth({ token : res.token, isAuthenticated: true });
+                            console.log(auth)
+                  localStorage.setItem('token',res.token);
                 console.log("welcome")
                 setValid(false)
                 navigate(`/products/${res[0]._id}`)

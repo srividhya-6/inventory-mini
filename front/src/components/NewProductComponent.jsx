@@ -29,7 +29,7 @@ export default function NewProductComponent(){
         axios.post("http://localhost:8082/api/products",product).then(response=>
          {
             console.log(response.data);
-            // navigate("/products")
+            navigate("/products")
 
         })
     }

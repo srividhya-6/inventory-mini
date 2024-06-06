@@ -45,7 +45,30 @@ export default function OrdersComponent() {
                 console.error('Error fetching orders:', error);
             });
     }, []);
-
+    function addProduct(id){
+       let o= orders.find((o)=>{
+            o.productId==id
+        })
+        o.quantity=o.quantity+1
+        axios.get(`http://localhost:8082/api/products/${id}`).then(res=>{
+            let product=res.data;
+            product.quantity=product.quantity-1
+            axios.put(`http://localhost:8082/api/products/${id}`,product)
+        })
+        setOrders(o)
+    }
+    function subProduct(id){
+       let o= orders.find((o)=>{
+            o.productId==id
+        })
+        o.quantity=o.quantity-1
+        axios.get(`http://localhost:8082/api/products/${id}`).then(res=>{
+            let product=res.data;
+            product.quantity=product.quantity+1
+            axios.put(`http://localhost:8082/api/products/${id}`,product)
+        })
+        setOrders(o)
+    }
     return (
         <>
             <TableContainer component={Paper}>
@@ -53,18 +76,19 @@ export default function OrdersComponent() {
                     <TableHead>
                         <TableRow>
                             <StyledTableCell align="left">ProductId</StyledTableCell>
-                            <StyledTableCell align="right">Quantity</StyledTableCell>
-                            
+                            <StyledTableCell align="right">Quantity</StyledTableCell>   
+                            <StyledTableCell align="right">control</StyledTableCell>   
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {orders.map((order) => (
+                             
                             <StyledTableRow>
                                 <StyledTableCell component="th" scope="row">
                                     {order.productId}
                                 </StyledTableCell>
-                                <StyledTableCell align="right">{order.quantity}</StyledTableCell>
-                              
+                                <StyledTableCell align="right">{order.quantity}</StyledTableCell>   
+                                <StyledTableCell align="right"><Button variant="contained" size="small" type='submit' onClick={()=>addProduct(order.productId)}>+</Button><Button variant="contained" size="small" type='submit' onClick={()=>subProduct(order.productId)}>-</Button></StyledTableCell>   
                             </StyledTableRow>
                         ))}
                     </TableBody>
