@@ -11,7 +11,7 @@ import Stack from '@mui/material/Stack';
 export default function LoginComponent(){
     let navigate=useNavigate()
     let [valid,setValid]=useState(false)
-    const { auth ,setAuth} = useContext(AuthContext);
+    
     let [user,setUser]=useState({
         email:"",
         password:""
@@ -38,9 +38,7 @@ export default function LoginComponent(){
                 navigate("/login")   
             }
             else{
-                setAuth({ token : res.token, isAuthenticated: true });
-                            console.log(auth)
-                  localStorage.setItem('token',res.token);
+                
                 console.log("welcome")
                 setValid(false)
                 navigate(`/products/${res[0]._id}`)
@@ -49,11 +47,17 @@ export default function LoginComponent(){
         })
     }
     return (
-        <form>
-             <TextField id="filled-basic" label="Email" name="email"variant="filled" onChange={updateUser} value={user.email}/><br /><br />
-             <TextField id="filled-basic" label="Password" name="password"variant="filled" onChange={updateUser} value={user.password}/><br /><br />
-             <Button variant="contained" type='submit' onClick={validateUser}>Login</Button><br /><br />
-             {valid?<Alert severity="error">Incorrect email or password</Alert>:""}
+        <>
+       <form>
+             <TextField id="filled-basic" label="Email" name="email" variant="filled" onChange={updateUser} value={user.email}/><br /><br />
+             
+             <TextField id="filled-basic" label="Password" name="password" variant="filled" onChange={updateUser} value={user.password}/><br /><br />
+
+             
+             <Button variant="contained" onClick={validateUser}>login</Button>
         </form>
+        {valid?<Alert severity="error">Incorrect email or password</Alert>:""}
+        </>
+        
     )
 }

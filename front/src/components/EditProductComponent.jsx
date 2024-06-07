@@ -35,12 +35,14 @@ export default function EditProductComponent(){
     }
     return (
         <form>
-        <TextField fullWidth name="name" label="Name" id="fullWidth" onChange={updateProduct} value={product.name}/><br /><br /><br />
-        <TextField fullWidth label="Description" name="description" id="fullWidth" onChange={updateProduct} value={product.description}/><br /><br /><br />
+            
+            <br /><br /><br />
+        <TextField fullWidth name="name" label="Name" id="fullWidth"value={product.name} onChange={updateProduct} /><br /><br /><br />
+        <TextField fullWidth label="Description" name="description" id="fullWidth"value={product.description} onChange={updateProduct} /><br /><br /><br />
         
-        <TextField  label="Price" name="price" id="outlined-basic" onChange={updateProduct} value={product.price}/>&nbsp;&nbsp;&nbsp;
-        <TextField  label="Quantity" name="quantity" id="outlined-basic" onChange={updateProduct} value={product.quantity}/>&nbsp;&nbsp;&nbsp;
-        <TextField  label="Category" name="category" id="outlined-basic" onChange={updateProduct} value={product.category}/><br /><br /><br />
+        <TextField  label="Price" name="price" id="outlined-basic" value={product.price} onChange={updateProduct}/>&nbsp;&nbsp;&nbsp;
+        <TextField  label="Quantity" name="quantity" id="outlined-basic"value={product.quantity} onChange={updateProduct} />&nbsp;&nbsp;&nbsp;
+        <TextField  label="Category" name="category" id="outlined-basic"value={product.category} onChange={updateProduct} /><br /><br /><br />
         <Button variant="contained" type='submit' onClick={editProduct}>Edit</Button>
      </form>
     )

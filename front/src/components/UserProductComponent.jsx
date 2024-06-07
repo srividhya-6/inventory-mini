@@ -72,10 +72,11 @@ export default function ProductComponent(){
           order.totalPrice=order.totalPrice+product.price;
           order.status="place order"
           axios.put(`http://localhost:8082/api/orders/${oid}`,order).then(res=>{
-            console.log(res.data)
+            
             product.quantity=product.quantity-1
             axios.put(`http://localhost:8082/api/products/${id}`,product).then(res=>{
-              setAdd(true)
+              
+              setProducts(res.data)
             }
             ) 
           })

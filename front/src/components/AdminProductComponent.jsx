@@ -66,8 +66,8 @@ export default function AdminProductComponent(){
                             <StyledTableCell align="left">Category</StyledTableCell>
                             <StyledTableCell align="left">Description</StyledTableCell>
                             <StyledTableCell align="left">Price</StyledTableCell>
-                            <StyledTableCell align="right">Quantity</StyledTableCell>   
-                            <StyledTableCell align="right">Control</StyledTableCell>   
+                            <StyledTableCell align="left">Quantity</StyledTableCell>   
+                            <StyledTableCell align="left">Control</StyledTableCell>   
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -75,15 +75,15 @@ export default function AdminProductComponent(){
                              
                             <StyledTableRow>
                                 <StyledTableCell component="th" scope="row">
-                                    {p._id}
+                                    {p._id.substring(20)}
                                 </StyledTableCell>
                                 <StyledTableCell align="left">{p.name}</StyledTableCell>   
                                 <StyledTableCell align="left">{p.category}</StyledTableCell>   
                                 <StyledTableCell align="left">{p.description}</StyledTableCell>   
                                 <StyledTableCell align="left">{p.price}</StyledTableCell>   
                                 <StyledTableCell align="left">{p.quantity}</StyledTableCell>   
-                                <StyledTableCell align="left"><Button variant="contained" size="small" type='submit' onClick={()=>navigate(`/products/edit/${p._id}`)}>Edit</Button>   
-                                <Button variant="contained" size="small" type='submit' onClick={()=>deleteProduct(p._id)}>Delete</Button></StyledTableCell>   
+                                <StyledTableCell align="left"><i class="fa-solid fa-pen-to-square" onClick={()=>navigate(`/products/edit/${p._id}`)}></i>&nbsp;&nbsp;&nbsp;
+                                <i class="fa-solid fa-trash" onClick={()=>deleteProduct(p._id)}></i></StyledTableCell>   
                             </StyledTableRow>
                         ))}
                     </TableBody>

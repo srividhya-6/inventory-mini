@@ -35,7 +35,7 @@ route.put("/api/products/:id",async (req,res)=>{
         // else{
             let o=req.body;
             await product.findByIdAndUpdate(req.params.id,o)
-            res.send("updated")
+            res.json(await product.find({}))
     //     }
     // })
     

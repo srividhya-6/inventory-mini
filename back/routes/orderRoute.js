@@ -58,8 +58,8 @@ route.post("/api/orders/",async (req,res)=>{
 })
 route.put("/api/orders/:id",async (req,res)=>{
     let o=req.body;
-    await order.findByIdAndUpdate(req.params.id,o)
-    res.send("updated")
+    let r=await order.findByIdAndUpdate(req.params.id,o)
+    res.send(r)
 })
 route.put("/api/orders/:id/status",async (req,res)=>{
     // jwt.verify(req.token,"secret login key",async (err,data)=>{

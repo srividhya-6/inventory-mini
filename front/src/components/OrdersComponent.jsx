@@ -45,29 +45,57 @@ export default function OrdersComponent() {
                 console.error('Error fetching orders:', error);
             });
     }, []);
-    function addProduct(id){
-       let o= orders.find((o)=>{
-            o.productId==id
-        })
-        o.quantity=o.quantity+1
-        axios.get(`http://localhost:8082/api/products/${id}`).then(res=>{
-            let product=res.data;
+    function addProduct(pid){
+        axios.get(`http://localhost:8082/api/products/${pid}`).then(res=>{
+          let product=res.data;
+          axios.get(`http://localhost:8082/api/orders/${id}`).then(res=>{
+            let order=res.data;
+            let oid=order._id
+            let r=order.items.find(p=>p.productId==pid)
+            if(r){
+              r.quantity=r.quantity+1;
+            }
+            else{
+              order.items.push({productId:id,quantity:1})
+            }
+            order.totalPrice=order.totalPrice+product.price;
+            order.status="place order"
             product.quantity=product.quantity-1
-            axios.put(`http://localhost:8082/api/products/${id}`,product)
+            axios.put(`http://localhost:8082/api/products/${pid}`,product).then(res=>{
+                axios.put(`http://localhost:8082/api/orders/${oid}`,order).then(res=>{
+                    console.log(res.data)
+                    setOrders(res.data.items)
+              }
+              ) 
+            })
+          })
         })
-        setOrders(o)
-    }
-    function subProduct(id){
-       let o= orders.find((o)=>{
-            o.productId==id
-        })
-        o.quantity=o.quantity-1
-        axios.get(`http://localhost:8082/api/products/${id}`).then(res=>{
+      }
+    function subProduct(pid){
+        axios.get(`http://localhost:8082/api/products/${pid}`).then(res=>{
             let product=res.data;
-            product.quantity=product.quantity+1
-            axios.put(`http://localhost:8082/api/products/${id}`,product)
-        })
-        setOrders(o)
+            axios.get(`http://localhost:8082/api/orders/${id}`).then(res=>{
+              let order=res.data;
+              let oid=order._id
+              let r=order.items.find(p=>p.productId==pid)
+              if(r){
+                r.quantity=r.quantity-1;
+              }
+              else{
+                order.items.push({productId:id,quantity:1})
+              }
+              order.totalPrice=order.totalPrice-product.price;
+              order.status="place order"
+              product.quantity=product.quantity+1
+              axios.put(`http://localhost:8082/api/products/${pid}`,product).then(res=>{
+                  axios.put(`http://localhost:8082/api/orders/${oid}`,order).then(res=>{
+                      console.log(res.data)
+                      setOrders(res.data.items)
+                }
+                ) 
+              })
+            })
+          })
     }
     return (
         <>
