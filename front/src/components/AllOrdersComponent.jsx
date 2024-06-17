@@ -11,11 +11,13 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import axios from 'axios';
 import { useNavigate, useParams } from "react-router-dom";
+import HeaderComponent from "./header";
+import FooterComponent from "./footer";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
+    // backgroundColor: theme.palette.common.black,
+    // color: theme.palette.common.white,
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
@@ -38,7 +40,7 @@ export default function AllOrdersComponent() {
     useEffect(() => {
         axios.get(`http://localhost:8082/api/orders`)
             .then(response => {
-                console.log(response.data);
+                
                 setOrders(response.data);
             })
             .catch(error => {
@@ -48,38 +50,46 @@ export default function AllOrdersComponent() {
 
     return (
         <>
+        <HeaderComponent></HeaderComponent>
             {orders.map((o) => (
-                
-                <div>
-                        <p>OrderId : {o._id}</p>
-                        <p>UserId : {o.userId}</p>
-                <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 700 }} aria-label="customized table">
-                    <TableHead>
-                        <TableRow>
-                            <StyledTableCell align="left">ProductId</StyledTableCell>
-                            <StyledTableCell align="right">Quantity</StyledTableCell>
-                            
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
+                (o.items.length)!=0?
+                    <div>
+                    <p>OrderId : {o._id}</p>
+                    <p>UserId : {o.userId}
+
+                    </p>
+            <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                <TableHead>
+                    <TableRow className="tablehead">
+                        <StyledTableCell align="left">ProductId</StyledTableCell>
+                        <StyledTableCell align="right">Quantity</StyledTableCell>
                         
-                            
-                            {o.items.map((order)=>
-                            <StyledTableRow>
-                                <StyledTableCell component="th" scope="row">
-                                    {order.productId}
-                                </StyledTableCell>
-                                <StyledTableCell align="right">{order.quantity}</StyledTableCell>
-                              
-                            </StyledTableRow>
-                        )}
-                       
-                    </TableBody>
-                </Table>
-            </TableContainer><br /><br />
-            </div>))}
-           
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    
+                        
+                        {o.items.map((order)=>
+                        (order.quantity!=0?<StyledTableRow>
+                            <StyledTableCell component="th" scope="row">
+                                {order.productId}
+                            </StyledTableCell>
+                            <StyledTableCell align="right">{order.quantity}</StyledTableCell>
+                          
+                        </StyledTableRow>:"")
+                        
+                    )}
+                   
+                </TableBody>
+            </Table>
+        </TableContainer><br /><br />
+        </div>:""
+                
+                
+                
+               ))}
+           <FooterComponent></FooterComponent>
         </>
     );
 }

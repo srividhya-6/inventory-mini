@@ -11,11 +11,13 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import axios from 'axios';
 import { useNavigate, useParams } from "react-router-dom";
+import HeaderComponent from "./header";
+import FooterComponent from "./footer";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
+    // backgroundColor: theme.palette.common.black,
+    // color: theme.palette.common.white,
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
@@ -48,6 +50,7 @@ export default function OrdersComponent() {
     function addProduct(pid){
         axios.get(`http://localhost:8082/api/products/${pid}`).then(res=>{
           let product=res.data;
+          
           axios.get(`http://localhost:8082/api/orders/${id}`).then(res=>{
             let order=res.data;
             let oid=order._id
@@ -65,6 +68,7 @@ export default function OrdersComponent() {
                 axios.put(`http://localhost:8082/api/orders/${oid}`,order).then(res=>{
                     console.log(res.data)
                     setOrders(res.data.items)
+                    
               }
               ) 
             })
@@ -98,11 +102,12 @@ export default function OrdersComponent() {
           })
     }
     return (
-        <>
+        <div style={{textAlign:"center"}}>
+        <HeaderComponent></HeaderComponent>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 700 }} aria-label="customized table">
                     <TableHead>
-                        <TableRow>
+                        <TableRow className="tablehead">
                             <StyledTableCell align="left">ProductId</StyledTableCell>
                             <StyledTableCell align="right">Quantity</StyledTableCell>   
                             <StyledTableCell align="right">control</StyledTableCell>   
@@ -110,20 +115,21 @@ export default function OrdersComponent() {
                     </TableHead>
                     <TableBody>
                         {orders.map((order) => (
-                             
+                             (order.quantity!=0)?
                             <StyledTableRow>
                                 <StyledTableCell component="th" scope="row">
                                     {order.productId}
                                 </StyledTableCell>
                                 <StyledTableCell align="right">{order.quantity}</StyledTableCell>   
-                                <StyledTableCell align="right"><Button variant="contained" size="small" type='submit' onClick={()=>addProduct(order.productId)}>+</Button><Button variant="contained" size="small" type='submit' onClick={()=>subProduct(order.productId)}>-</Button></StyledTableCell>   
-                            </StyledTableRow>
+                                <StyledTableCell align="right"><Button variant="contained" size="small" type='submit' onClick={()=>addProduct(order.productId)} className="btn">+</Button>&nbsp;&nbsp;<Button variant="contained" size="small" type='submit' onClick={()=>subProduct(order.productId)} className="btn">-</Button></StyledTableCell> 
+                            </StyledTableRow>:""
                         ))}
                     </TableBody>
                 </Table>
             </TableContainer><br /><br />
 
-            <Button variant="contained">Place Order</Button>
-        </>
+            <Button variant="contained" className="btn" style={{textAlign:"center"}}>Place Order</Button><br /><br />
+            <FooterComponent></FooterComponent>
+        </div>
     );
 }

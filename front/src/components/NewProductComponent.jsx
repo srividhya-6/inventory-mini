@@ -5,6 +5,9 @@ import Button from '@mui/material/Button';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import "./newProduct.css"
+import HeaderComponent from './header';
+import FooterComponent from './footer';
 export default function NewProductComponent(){
     const navigate=useNavigate()
     let [product,setProduct]=useState({
@@ -34,15 +37,37 @@ export default function NewProductComponent(){
         })
     }
     return (
-        <form>
-           <TextField fullWidth name="name" label="Name" id="fullWidth" onChange={updateProduct} value={product.name}/><br /><br /><br />
-           
-           <TextField fullWidth label="Description" name="description" id="fullWidth" onChange={updateProduct} value={product.description}/><br /><br /><br />
-           <TextField  label="Price" name="price" id="outlined-basic" onChange={updateProduct} value={product.price}/>&nbsp;&nbsp;&nbsp;
-           <TextField  label="Quantity" name="quantity" id="outlined-basic" onChange={updateProduct} value={product.quantity}/>&nbsp;&nbsp;&nbsp;
-           <TextField  label="Category" name="category" id="outlined-basic" onChange={updateProduct} value={product.category}/><br /><br /><br />
-           <TextField fullWidth name="image" label="Image" id="fullWidth" onChange={updateProduct} value={product.image}/><br /><br /><br />
-           <Button variant="contained" type='submit' onClick={addProduct}>Add Product</Button>
+        <>
+        <HeaderComponent></HeaderComponent>
+        <div class="container">
+        <h2 class="form-title">Add Product</h2>
+        <form id="addProductForm" class="product-form">
+          <div class="form-group">
+            <label for="productName" class="form-label">Product Name:</label>
+            <input type="text" id="productName" name="name" class="form-input" onChange={updateProduct} value={product.name} required/>
+          </div>
+          <div class="form-group">
+            <label for="productDescription" class="form-label">Description:</label>
+            <textarea id="productDescription" name="description" class="form-textarea" rows="3" onChange={updateProduct} value={product.description} required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="productPrice" class="form-label">Price:</label>
+            <input type="number" id="productPrice" name="price" class="form-input" step="0.01" min="0" onChange={updateProduct} value={product.price}required/>
+          </div>
+          <div class="form-group">
+            <label for="productQuantity" class="form-label">Quantity:</label>
+            <input type="number" id="productQuantity" name="quantity" class="form-input" min="0" onChange={updateProduct} value={product.quantity} required/>
+          </div>
+          <div class="form-group">
+            <label for="productCategory" class="form-label">Category:</label>
+            <input type="text" id="productCategory" name="category" class="form-input" onChange={updateProduct} value={product.category} required/>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="form-button" onClick={addProduct}>Add Product</button>
+          </div>
         </form>
+       </div>
+       <FooterComponent></FooterComponent>
+       </>
     )
 }

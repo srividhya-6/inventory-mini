@@ -17,11 +17,14 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import axios from 'axios';
+import HeaderComponent from './header';
 import { useNavigate, useParams } from "react-router-dom";
+import FooterComponent from './footer';
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
+    // backgroundColor: theme.palette.common.black,
+    // color: theme.palette.common.white,
+    color: theme.palette.common.black
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
@@ -87,18 +90,18 @@ export default function ProductComponent(){
 
 
       <>
-        
+        <HeaderComponent></HeaderComponent>
       <TableContainer component={Paper}>
               <Table sx={{ minWidth: 700 }} aria-label="customized table">
                   <TableHead>
-                      <TableRow>
+                      <TableRow className='tablehead'>
                           <StyledTableCell align="left">ProductId</StyledTableCell>
                           <StyledTableCell align="left">Name</StyledTableCell>
                           <StyledTableCell align="left">Category</StyledTableCell>
                           <StyledTableCell align="left">Description</StyledTableCell>
                           <StyledTableCell align="left">Price</StyledTableCell>
-                          <StyledTableCell align="right">Quantity</StyledTableCell>   
-                          <StyledTableCell align="right">Control</StyledTableCell>   
+                          <StyledTableCell align="left">Quantity</StyledTableCell>   
+                          <StyledTableCell align="left">Control</StyledTableCell>   
                       </TableRow>
                   </TableHead>
                   <TableBody>
@@ -113,7 +116,7 @@ export default function ProductComponent(){
                               <StyledTableCell align="left">{p.description}</StyledTableCell>   
                               <StyledTableCell align="left">{p.price}</StyledTableCell>   
                               <StyledTableCell align="left">{p.quantity}</StyledTableCell>   
-                              <StyledTableCell align="left">{p.quantity>0 ? <Button variant="contained" size="small" type='submit' onClick={()=>addProduct(p._id)}>+</Button>:"nostock"}</StyledTableCell>   
+                              <StyledTableCell align="left">{p.quantity>0 ? <Button variant="contained" size="small" type='submit' onClick={()=>addProduct(p._id)} className='btn'>+</Button>:"nostock"}</StyledTableCell>   
                           </StyledTableRow>
                       ))}
                   </TableBody>
@@ -122,12 +125,8 @@ export default function ProductComponent(){
           {add?<Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
   Product Added Scuuessfully
 </Alert>:""}
-    <footer className="footer mt-auto py-3 bg-light">
-        <div className="container text-center">
-            <button onClick={()=>navigate(`/orders/${uid}`)} className="btn btn-primary">orders</button>
-        </div>
-    </footer>
-
+    
+<FooterComponent></FooterComponent>
      
 
 

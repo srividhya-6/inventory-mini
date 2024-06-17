@@ -4,6 +4,10 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import HeaderComponent from './header';
+import Cookies from 'universal-cookie';
+import FooterComponent from './footer';
+const cookies = new Cookies();
 export default function EditProductComponent(){
     const navigate=useNavigate()
     let { id } = useParams();
@@ -28,22 +32,44 @@ export default function EditProductComponent(){
         e.preventDefault()
         axios.put(`http://localhost:8082/api/products/${id}`,product).then(response=>
          {
+            
             console.log(response.data);
             navigate(`/products`)
 
         })
     }
     return (
-        <form>
-            
-            <br /><br /><br />
-        <TextField fullWidth name="name" label="Name" id="fullWidth"value={product.name} onChange={updateProduct} /><br /><br /><br />
-        <TextField fullWidth label="Description" name="description" id="fullWidth"value={product.description} onChange={updateProduct} /><br /><br /><br />
-        
-        <TextField  label="Price" name="price" id="outlined-basic" value={product.price} onChange={updateProduct}/>&nbsp;&nbsp;&nbsp;
-        <TextField  label="Quantity" name="quantity" id="outlined-basic"value={product.quantity} onChange={updateProduct} />&nbsp;&nbsp;&nbsp;
-        <TextField  label="Category" name="category" id="outlined-basic"value={product.category} onChange={updateProduct} /><br /><br /><br />
-        <Button variant="contained" type='submit' onClick={editProduct}>Edit</Button>
-     </form>
+        <>
+        <HeaderComponent></HeaderComponent>
+        <div class="container">
+        <h2 class="form-title">Add Product</h2>
+        <form id="addProductForm" class="product-form">
+          <div class="form-group">
+            <label for="productName" class="form-label">Product Name:</label>
+            <input type="text" id="productName" name="name" class="form-input" value={product.name} onChange={updateProduct} required/>
+          </div>
+          <div class="form-group">
+            <label for="productDescription" class="form-label">Description:</label>
+            <textarea id="productDescription" name="description" class="form-textarea" rows="3" value={product.description} onChange={updateProduct} required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="productPrice" class="form-label">Price:</label>
+            <input type="number" id="productPrice" name="price" class="form-input" step="0.01" min="0" value={product.price} onChange={updateProduct} required/>
+          </div>
+          <div class="form-group">
+            <label for="productQuantity" class="form-label">Quantity:</label>
+            <input type="number" id="productQuantity" name="quantity" class="form-input" min="0" value={product.quantity} onChange={updateProduct} required/>
+          </div>
+          <div class="form-group">
+            <label for="productCategory" class="form-label">Category:</label>
+            <input type="text" id="productCategory" name="category" class="form-input" value={product.category} onChange={updateProduct} required/>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="form-button" onClick={editProduct}>Edit Product</button>
+          </div>
+        </form>
+       </div>
+        <FooterComponent></FooterComponent>
+       </>
     )
 }

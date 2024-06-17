@@ -6,8 +6,11 @@ import { useNavigate } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
 import axios from 'axios';
 import { useState ,useContext} from 'react';
-
+import "./login.css"
 import Stack from '@mui/material/Stack';
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
+
 export default function LoginComponent(){
     let navigate=useNavigate()
     let [valid,setValid]=useState(false)
@@ -38,26 +41,41 @@ export default function LoginComponent(){
                 navigate("/login")   
             }
             else{
+                cookies.set('role', (res[0].role), { path: '/' });
+                cookies.set('id', (res[0]._id), { path: '/' });
+                cookies.set('profile',((res[0].profile)),{path:'/'})
                 
-                console.log("welcome")
                 setValid(false)
-                navigate(`/products/${res[0]._id}`)
+                if(cookies.get('role')=='admin')
+                navigate(`/products/admin/${res[0]._id}`)
+            else{
+                navigate(`/products/user/${res[0]._id}`)
+            }
             }
     
         })
     }
     return (
         <>
-       <form>
-             <TextField id="filled-basic" label="Email" name="email" variant="filled" onChange={updateUser} value={user.email}/><br /><br />
-             
-             <TextField id="filled-basic" label="Password" name="password" variant="filled" onChange={updateUser} value={user.password}/><br /><br />
-
-             
-             <Button variant="contained" onClick={validateUser}>login</Button>
+        <div class="body">
+        <div class="login-container">
+        <form class="login-form">
+            <h2>Login</h2>
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email" onChange={updateUser} value={user.email} required/>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" onChange={updateUser} value={user.password} required/>
+            </div>
+            <button type="submit" class="login-button" onClick={validateUser}>Login</button><br /><br />
+            Don't have an account ? <button type="submit" class="signup-button" onClick={()=>navigate("/signup")}>Sign Up</button>
         </form>
         {valid?<Alert severity="error">Incorrect email or password</Alert>:""}
-        </>
+    </div>
+    </div>
+    </>
         
     )
 }
