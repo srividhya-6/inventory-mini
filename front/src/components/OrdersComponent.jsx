@@ -36,16 +36,19 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export default function OrdersComponent() {
     const navigate = useNavigate();
     const [orders, setOrders] = useState([]);
+    const [product,setProducts]=useState([]);
     let {id}=useParams()
     useEffect(() => {
+      axios.get("http://localhost:8082/api/products").then(response=> {
+        console.log(response.data);
+        setProducts(response.data)})
+      
         axios.get(`http://localhost:8082/api/orders/${id}`)
             .then(response => {
                 console.log(response.data.items);
                 setOrders(response.data.items);
             })
-            .catch(error => {
-                console.error('Error fetching orders:', error);
-            });
+            
     }, []);
     function addProduct(pid){
         axios.get(`http://localhost:8082/api/products/${pid}`).then(res=>{
@@ -109,7 +112,11 @@ export default function OrdersComponent() {
                     <TableHead>
                         <TableRow className="tablehead">
                             <StyledTableCell align="left">ProductId</StyledTableCell>
-                            <StyledTableCell align="right">Quantity</StyledTableCell>   
+                            <StyledTableCell align="left">Product Name</StyledTableCell>
+                            <StyledTableCell align="right">Quantity</StyledTableCell>  
+                            <StyledTableCell align="right">Price</StyledTableCell>  
+                            <StyledTableCell align="right">Value</StyledTableCell>  
+
                             <StyledTableCell align="right">control</StyledTableCell>   
                         </TableRow>
                     </TableHead>
@@ -120,14 +127,18 @@ export default function OrdersComponent() {
                                 <StyledTableCell component="th" scope="row">
                                     {order.productId}
                                 </StyledTableCell>
+                                <StyledTableCell component="th" scope="row">
+                                    {product.find((p)=>p._id==order.productId).name}
+                                </StyledTableCell>
                                 <StyledTableCell align="right">{order.quantity}</StyledTableCell>   
+                                <StyledTableCell align="right">{product.find((p)=>p._id==order.productId).price}</StyledTableCell>   
+                                <StyledTableCell align="right">{product.find((p)=>p._id==order.productId).price*order.quantity}</StyledTableCell>   
                                 <StyledTableCell align="right"><Button variant="contained" size="small" type='submit' onClick={()=>addProduct(order.productId)} className="btn">+</Button>&nbsp;&nbsp;<Button variant="contained" size="small" type='submit' onClick={()=>subProduct(order.productId)} className="btn">-</Button></StyledTableCell> 
                             </StyledTableRow>:""
                         ))}
                     </TableBody>
                 </Table>
             </TableContainer><br /><br />
-
             <Button variant="contained" className="btn" style={{textAlign:"center"}}>Place Order</Button><br /><br />
             <FooterComponent></FooterComponent>
         </div>

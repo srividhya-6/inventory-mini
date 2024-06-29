@@ -75,15 +75,15 @@ route.put("/api/orders/:id/status",async (req,res)=>{
     
 })
 route.delete("/api/orders/:id",async (req,res)=>{
-    jwt.verify(req.token,"secret login key",async (err,data)=>{
-        if(err){
-            res.send("user is not valid")
-        }
-        else{
+    // jwt.verify(req.token,"secret login key",async (err,data)=>{
+        // if(err){
+        //     res.send("user is not valid")
+        // }
+        // else{
             await order.findByIdAndDelete(req.params.id)
             res.send("deleted")
-        }
-    })
+    //     }
+    // })
     
 })
 module.exports=route

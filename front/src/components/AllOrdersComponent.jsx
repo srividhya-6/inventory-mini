@@ -36,8 +36,13 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export default function AllOrdersComponent() {
     const navigate = useNavigate();
     const [orders, setOrders] = useState([]);
+    const [products,setProducts]=useState([]);
     
     useEffect(() => {
+        axios.get("http://localhost:8082/api/products").then(response=> {
+            console.log(response.data);
+            setProducts(response.data)})
+          
         axios.get(`http://localhost:8082/api/orders`)
             .then(response => {
                 
@@ -63,7 +68,10 @@ export default function AllOrdersComponent() {
                 <TableHead>
                     <TableRow className="tablehead">
                         <StyledTableCell align="left">ProductId</StyledTableCell>
+                        <StyledTableCell align="left">Product Name</StyledTableCell>
                         <StyledTableCell align="right">Quantity</StyledTableCell>
+                        <StyledTableCell align="right">Price</StyledTableCell>
+                        <StyledTableCell align="right">Value</StyledTableCell>
                         
                     </TableRow>
                 </TableHead>
@@ -75,8 +83,13 @@ export default function AllOrdersComponent() {
                             <StyledTableCell component="th" scope="row">
                                 {order.productId}
                             </StyledTableCell>
-                            <StyledTableCell align="right">{order.quantity}</StyledTableCell>
-                          
+                            
+                            <StyledTableCell component="th" scope="row">
+                                    {products.find((p)=>p._id==order.productId).name}
+                                </StyledTableCell>
+                                <StyledTableCell align="right">{order.quantity}</StyledTableCell>   
+                                <StyledTableCell align="right">{products.find((p)=>p._id==order.productId).price}</StyledTableCell>   
+                                <StyledTableCell align="right">{products.find((p)=>p._id==order.productId).price*order.quantity}</StyledTableCell>   
                         </StyledTableRow>:"")
                         
                     )}

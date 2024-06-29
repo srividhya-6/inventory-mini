@@ -158,7 +158,7 @@ export default function AdminProductComponent(){
                             <StyledTableCell align="left">Description</StyledTableCell>
                             <StyledTableCell align="left">Price</StyledTableCell>
                             <StyledTableCell align="left">Quantity</StyledTableCell>   
-                            <StyledTableCell align="left">Control</StyledTableCell>   
+                            <StyledTableCell align="left">Controls</StyledTableCell>   
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -166,7 +166,7 @@ export default function AdminProductComponent(){
                              
                             <StyledTableRow>
                                 <StyledTableCell component="th" scope="row">
-                                    {p._id.substring(20)}
+                                    {p._id}
                                 </StyledTableCell>
                                 <StyledTableCell align="left">{p.name}</StyledTableCell>   
                                 <StyledTableCell align="left">{p.category}</StyledTableCell>   
