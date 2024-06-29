@@ -12,6 +12,7 @@ import NewProductComponent from './components/NewProductComponent'
 import EditProductComponent from './components/EditProductComponent'
 import OrdersComponent from "./components/OrdersComponent"
 import AllOrdersComponent from "./components/AllOrdersComponent"
+import EditUserComponent from './components/EditUserComponent'
 import AccountComponent from './components/AccountComponent'
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
         <Route path="/products/admin/:id" exact element={<AdminProductComponent></AdminProductComponent>}/>
         <Route path="/products/user/:id" exact element={<UserProductComponent></UserProductComponent>}/>
         <Route path="/product/new" exact element={<NewProductComponent></NewProductComponent>}/>
+        <Route path="/user/edit/:id" exact element={<EditUserComponent></EditUserComponent>}/>
         <Route path="/account/:id" exact element={<AccountComponent></AccountComponent>}/>
         <Route path="/products/edit/:id" exact element={<EditProductComponent></EditProductComponent>}/>
         {/* <Route path="/products/delete" exact element={<ProductComponent></ProductComponent>}/> */}

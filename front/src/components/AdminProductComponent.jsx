@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import { styled, alpha } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
@@ -12,6 +12,7 @@ import Button from '@mui/material/Button';
 import axios from 'axios';
 import { useNavigate, useParams } from "react-router-dom";
 import DeleteIcon from '@mui/icons-material/Delete';
+import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
@@ -23,6 +24,8 @@ import DangerousIcon from '@mui/icons-material/Dangerous';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { colors } from "@mui/material";
 import FooterComponent from "./footer";
+import SearchIcon from '@mui/icons-material/Search';
+
 const LightTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
 ))(({ theme }) => ({
@@ -60,7 +63,7 @@ export default function AdminProductComponent(){
     let [add,setAdd]=useState(false)
     let [total,setTotal]=useState([])
     let [products,setProducts]=useState([]);
-    
+    let [search,setSearch]=useState("");
     useEffect(function updateProducts(){
         axios.get("http://localhost:8082/api/products").then(response=> {
             console.log(response.data);
@@ -68,10 +71,11 @@ export default function AdminProductComponent(){
           setTotal(response.data)})
     },[])
     function deleteProduct(id){
-      let r=alert("Do you want to delete ?");
-      if(!r){
+      let r=confirm("Do you want to delete ?");
+      if(r==true){
         axios.delete(`http://localhost:8082/api/products/${id}`).then(res=>{
             console.log(res.data);
+            setTotal(total.filter((p)=>p._id!=id))
             setProducts(products.filter((p)=>p._id!=id))
         })
       }
@@ -99,6 +103,12 @@ export default function AdminProductComponent(){
     else{
       return 0;
     }
+   }
+   function updatesearch(e){
+    setSearch(e.target.value)
+   }
+   function searchProduct(){
+    setProducts(total.filter((p)=>p.name.toLowerCase().includes(search.toLowerCase())))
    }
    function getOutStock(){
     let c=total.filter((p)=>p.quantity==0)
@@ -136,7 +146,8 @@ export default function AdminProductComponent(){
         </Tooltip>
         </div>
        </div>
-       
+       <label for="search" > Search : </label>
+       <input type="text" placeholder="search by name" id="search" name="search" style={{width:350,margin:10,borderRadius:3,borderBlockColor:"#BD96BD"}} value={search} onChange={updatesearch}/>  <SearchIcon onClick={searchProduct} fontSize="small" style={{color:"#BD96BD"}}></SearchIcon>
         <TableContainer component={Paper} >
                 <Table  aria-label="customized table">
                     <TableHead >

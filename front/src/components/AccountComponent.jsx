@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './account.css'; // Import your CSS file for styling if needed
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import HeaderComponent from './header';
 import FooterComponent from './footer';
 const AccountComponent = () => {
-    
+    const navigate=useNavigate();
     let [user,setUser]=useState({});
     let {id}=useParams()
     useEffect(function userDetails(){
@@ -29,6 +29,7 @@ const AccountComponent = () => {
         <p><strong>Password:</strong> {user.password}</p>
         <p><strong>Role:</strong> {user.role}</p>
       </div>
+      <bottom type="submit" class="form-button"  onClick={()=>navigate(`/user/edit/${id}`)}>Edit</bottom>
     </div>
     <FooterComponent></FooterComponent>
     </>

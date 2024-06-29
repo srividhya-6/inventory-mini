@@ -19,6 +19,19 @@ route.get("/user/:id",async(req,res)=>{
     console.log(u)
     res.send(u);
 })
+route.put("/user/:id",async (req,res)=>{
+    // jwt.verify(req.token,"secret admin key",async (err,data)=>{
+    //     if(err){
+    //         res.send("user is not valid")
+    //     }
+        // else{
+            let o=req.body;
+            await user.findByIdAndUpdate(req.params.id,o)
+            res.json(await user.find({}))
+    //     }
+    // })
+    
+})
 route.post("/login",async (req,res)=>{
 
     const u=req.body;

@@ -29,6 +29,10 @@ export default function NewProductComponent(){
     }
     function addProduct(e){
         e.preventDefault()
+         if (!product.name || !product.description || !product.price || !product.quantity || !product.category) {
+            alert("Please fill out all fields.");
+            return;
+        }
         axios.post("http://localhost:8082/api/products",product).then(response=>
          {
             console.log(response.data);
@@ -41,7 +45,7 @@ export default function NewProductComponent(){
         <HeaderComponent></HeaderComponent>
         <div class="container">
         <h2 class="form-title">Add Product</h2>
-        <form id="addProductForm" class="product-form">
+        <form id="addProductForm" class="product-form needs-validation" noValidate>
           <div class="form-group">
             <label for="productName" class="form-label">Product Name:</label>
             <input type="text" id="productName" name="name" class="form-input" onChange={updateProduct} value={product.name} required/>

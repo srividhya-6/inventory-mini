@@ -30,6 +30,10 @@ export default function EditProductComponent(){
     }
     function editProduct(e){
         e.preventDefault()
+        if (!product.name || !product.description || !product.price || !product.quantity || !product.category) {
+          alert("Please fill out all fields.");
+          return;
+      }
         axios.put(`http://localhost:8082/api/products/${id}`,product).then(response=>
          {
             
