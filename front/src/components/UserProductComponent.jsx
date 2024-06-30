@@ -4,7 +4,7 @@
 import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import SearchIcon from '@mui/icons-material/Search';
 import { useState, useEffect } from "react";
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
@@ -46,10 +46,13 @@ export default function ProductComponent(){
     const navigate=useNavigate()
     let [add,setAdd]=useState(false)
     let [products,setProducts]=useState([]);
+    let [total,setTotal]=useState([]);
+    let [search,setSearch]=useState("");
     useEffect(function updateProducts(){
         axios.get("http://localhost:8082/api/products").then(response=> {
             console.log(response.data);
-            setProducts(response.data)})
+            setProducts(response.data)
+            setTotal(response.data)})
     },[])
     // function deleteProduct(id){
     //     axios.delete(`http://localhost:8082/api/products/${id}`).then(res=>{
@@ -58,7 +61,12 @@ export default function ProductComponent(){
     //     })
     // }
    
- 
+    function updatesearch(e){
+      setSearch(e.target.value)
+     }
+     function searchProduct(){
+      setProducts(total.filter((p)=>p.name.toLowerCase().includes(search.toLowerCase())))
+     }
     function addProduct(id){
       axios.get(`http://localhost:8082/api/products/${id}`).then(res=>{
         let product=res.data;
@@ -78,8 +86,8 @@ export default function ProductComponent(){
             
             product.quantity=product.quantity-1
             axios.put(`http://localhost:8082/api/products/${id}`,product).then(res=>{
-              
               setProducts(res.data)
+              setTotal(res.data)
             }
             ) 
           })
@@ -91,6 +99,9 @@ export default function ProductComponent(){
 
       <>
         <HeaderComponent></HeaderComponent>
+        <label for="search" > Search : </label>
+       <input type="text" placeholder="search by name" id="search" name="search" style={{width:350,margin:10,borderRadius:3,borderBlockColor:"#BD96BD"}} value={search} onChange={updatesearch}/>  <button style={{backgroundColor:"#BD96BD",border:"none",borderRadius:4,padding:3,width:30}}><SearchIcon onClick={searchProduct} fontSize="small" style={{color:"white"}}></SearchIcon></button>
+        
       <TableContainer component={Paper}>
               <Table sx={{ minWidth: 700 }} aria-label="customized table">
                   <TableHead>

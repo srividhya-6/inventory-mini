@@ -9,6 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
+import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import axios from 'axios';
 import { useNavigate, useParams } from "react-router-dom";
 import HeaderComponent from "./header";
@@ -35,7 +36,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function OrdersComponent() {
     const navigate = useNavigate();
-    const [orders, setOrders] = useState([]);
+    const [orders, setOrders] = useState({items:[],totalPrice:0});
     const [product,setProducts]=useState([]);
     let {id}=useParams()
     useEffect(() => {
@@ -45,8 +46,8 @@ export default function OrdersComponent() {
       
         axios.get(`http://localhost:8082/api/orders/${id}`)
             .then(response => {
-                console.log(response.data.items);
-                setOrders(response.data.items);
+                console.log(response.data);
+                setOrders(response.data);
             })
             
     }, []);
@@ -57,20 +58,17 @@ export default function OrdersComponent() {
           axios.get(`http://localhost:8082/api/orders/${id}`).then(res=>{
             let order=res.data;
             let oid=order._id
-            let r=order.items.find(p=>p.productId==pid)
-            if(r){
-              r.quantity=r.quantity+1;
-            }
-            else{
-              order.items.push({productId:id,quantity:1})
-            }
+            let r=order.items.findIndex(p=>p.productId==pid)
+            order.items[r].quantity=order.items[r].quantity+1
+            
             order.totalPrice=order.totalPrice+product.price;
-            order.status="place order"
+           
             product.quantity=product.quantity-1
+            
             axios.put(`http://localhost:8082/api/products/${pid}`,product).then(res=>{
                 axios.put(`http://localhost:8082/api/orders/${oid}`,order).then(res=>{
-                    console.log(res.data)
-                    setOrders(res.data.items)
+                    
+                    setOrders(order)
                     
               }
               ) 
@@ -85,19 +83,16 @@ export default function OrdersComponent() {
               let order=res.data;
               let oid=order._id
               let r=order.items.find(p=>p.productId==pid)
-              if(r){
+              
                 r.quantity=r.quantity-1;
-              }
-              else{
-                order.items.push({productId:id,quantity:1})
-              }
+             
               order.totalPrice=order.totalPrice-product.price;
-              order.status="place order"
+              
               product.quantity=product.quantity+1
               axios.put(`http://localhost:8082/api/products/${pid}`,product).then(res=>{
                   axios.put(`http://localhost:8082/api/orders/${oid}`,order).then(res=>{
-                      console.log(res.data)
-                      setOrders(res.data.items)
+                      
+                      setOrders(order)
                 }
                 ) 
               })
@@ -121,7 +116,7 @@ export default function OrdersComponent() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {orders.map((order) => (
+                        {orders.items.map((order) => (
                              (order.quantity!=0)?
                             <StyledTableRow>
                                 <StyledTableCell component="th" scope="row">
@@ -139,6 +134,7 @@ export default function OrdersComponent() {
                     </TableBody>
                 </Table>
             </TableContainer><br /><br />
+                        <h3>Total Amount : {(orders.totalPrice).toFixed(2)}</h3>
             <Button variant="contained" className="btn" style={{textAlign:"center"}}>Place Order</Button><br /><br />
             <FooterComponent></FooterComponent>
         </div>
