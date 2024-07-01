@@ -21,7 +21,7 @@ const AccountComponent = () => {
     <HeaderComponent></HeaderComponent>
     <div className="account">
       <div className="profile">
-        <img src={user.profile} alt="Profile" className="profile-pic" />
+        {user.profile?<img src={user.profile} alt="Profile" className="profile-pic" />:<img src="C:\Users\Admin\Downloads\proj-back (2)\proj-back\front\src\assets\images\profile.jpg" alt="Profile" className="profile-pic" />}
         <h2>{user.username}</h2>
       </div>
       <div className="details">

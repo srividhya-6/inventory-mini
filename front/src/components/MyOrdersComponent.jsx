@@ -10,6 +10,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
+import emptycart from "../assets/images/emptycart.jpg"
 import axios from 'axios';
 import { useNavigate, useParams } from "react-router-dom";
 import HeaderComponent from "./header";
@@ -103,7 +104,7 @@ export default function MyOrdersComponent() {
             <br /><br />
                         {/* <h3>Total Amount : {(orders.totalPrice).toFixed(2)}</h3> */}
             
-            </div>:<div style={{height:400,textAlign:"center"}}><h3>--No Orders--</h3></div>}
+            </div>:<div><img src={emptycart} style={{position:"relative",left:500}}></img></div>}
             <FooterComponent></FooterComponent>
         </div>
     );

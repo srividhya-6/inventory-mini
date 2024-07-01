@@ -14,6 +14,7 @@ import OrdersComponent from "./components/OrdersComponent"
 import AllOrdersComponent from "./components/AllOrdersComponent"
 import EditUserComponent from './components/EditUserComponent'
 import AccountComponent from './components/AccountComponent'
+import ProductComponent from './components/ProductComponent'
 import MyOrdersComponent from './components/MyOrdersComponent'
 function App() {
   
@@ -32,6 +33,7 @@ function App() {
         <Route path="/myorders/user/:id" exact element={<MyOrdersComponent></MyOrdersComponent>}/>
         <Route path="/products/admin/:id" exact element={<AdminProductComponent></AdminProductComponent>}/>
         <Route path="/products/user/:id" exact element={<UserProductComponent></UserProductComponent>}/>
+        <Route path="/products/view/:id" exact element={<ProductComponent></ProductComponent>}/>
         <Route path="/product/new" exact element={<NewProductComponent></NewProductComponent>}/>
         <Route path="/user/edit/:id" exact element={<EditUserComponent></EditUserComponent>}/>
         <Route path="/account/:id" exact element={<AccountComponent></AccountComponent>}/>

@@ -11,6 +11,7 @@ const productSchema=mongoose.Schema(
         price:Number,
         quantity:Number,
         category:String,
+        image:String
     }
 )
 

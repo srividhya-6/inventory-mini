@@ -24,6 +24,8 @@ import DangerousIcon from '@mui/icons-material/Dangerous';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { colors } from "@mui/material";
 import FooterComponent from "./footer";
+import noproduct from "../assets/images/noproduct.jpg"
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import SearchIcon from '@mui/icons-material/Search';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -161,7 +163,7 @@ export default function AdminProductComponent(){
        </div>
        <label for="search" > Search : </label>
        <input type="text" placeholder="search by name" id="search" name="search" style={{width:350,margin:10,borderRadius:3,borderBlockColor:"#BD96BD"}} value={search} onChange={updatesearch}/><button style={{backgroundColor:"#BD96BD",border:"none",borderRadius:4,padding:3,width:30}}>  <SearchIcon onClick={searchProduct} fontSize="small" style={{color:"white"}}></SearchIcon></button>
-        <TableContainer component={Paper} >
+        {products.length!=0?<TableContainer component={Paper} >
                 <Table  aria-label="customized table">
                     <TableHead >
                         <TableRow className="tablehead">
@@ -177,7 +179,7 @@ export default function AdminProductComponent(){
                     <TableBody>
                         {products.map((p) => (
                              
-                            <StyledTableRow>
+                            <StyledTableRow onDoubleClick={()=>navigate(`/products/view/${p._id}`)}>
                                 <StyledTableCell component="th" scope="row">
                                     {p._id}
                                 </StyledTableCell>
@@ -187,6 +189,7 @@ export default function AdminProductComponent(){
                                 <StyledTableCell align="left">{p.price}</StyledTableCell>   
                                 <StyledTableCell align="left">{p.quantity}</StyledTableCell>   
                                 <StyledTableCell align="left">
+                                
                                 <Tooltip title="Edit" onClick={()=>navigate(`/products/edit/${p._id}`)}>
                                     <IconButton>
                                       <EditIcon />
@@ -194,7 +197,7 @@ export default function AdminProductComponent(){
                                   </Tooltip>
                                 
                                   
-                                  &nbsp;&nbsp;&nbsp;
+                                  &nbsp;&nbsp;
                                   <Tooltip title="Delete" onClick={()=>deleteProduct(p._id)}>
                                     <IconButton>
                                       <DeleteIcon />
@@ -206,7 +209,7 @@ export default function AdminProductComponent(){
                           ))}
                     </TableBody>
                 </Table>
-            </TableContainer><br /><br />
+            </TableContainer>:<div><img src={noproduct} style={{position:"relative",left:500}}></img></div>}<br /><br />
             
     {add?<Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
   Product Added Scuuessfully

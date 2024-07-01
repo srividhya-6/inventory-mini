@@ -20,7 +20,7 @@ route.get("/api/orders",async (req,res)=>{
     //         })
     //     }
     //     else{
-            let orders=await order.find({});
+            let orders=await order.find({status:"order placed"});
             res.send(orders)
     //     }
     // })

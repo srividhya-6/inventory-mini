@@ -16,7 +16,7 @@ const styles = {
       margin: 0,
       height: "100vh",
       backgroundImage: `url(${background})`,
-     
+     backgroundSize: "cover",
       backgroundRepeat: "no-repeat"
   }
 };

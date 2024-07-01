@@ -11,6 +11,7 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import axios from 'axios';
+import emptycart from "../assets/images/emptycart.jpg"
 import { useNavigate, useParams } from "react-router-dom";
 import HeaderComponent from "./header";
 import FooterComponent from "./footer";
@@ -182,7 +183,8 @@ export default function OrdersComponent() {
             </TableContainer><br /><br />
                         <h3>Total Amount : {(orders.totalPrice).toFixed(2)}</h3>
             <Button variant="contained" className="btn" style={{textAlign:"center"}} onClick={placeOrder}>Place Order</Button><br /><br />
-            </div>:<div style={{height:400,textAlign:"center"}}><h3>--No Orders--</h3></div>}
+            </div>
+            :<div><img src={emptycart} style={{position:"relative"}}></img></div>}
             <FooterComponent></FooterComponent>
         </div>
     );
