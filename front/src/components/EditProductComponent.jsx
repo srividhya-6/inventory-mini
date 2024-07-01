@@ -7,6 +7,8 @@ import { useParams } from 'react-router-dom';
 import HeaderComponent from './header';
 import Cookies from 'universal-cookie';
 import FooterComponent from './footer';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const cookies = new Cookies();
 export default function EditProductComponent(){
     const navigate=useNavigate()
@@ -28,10 +30,21 @@ export default function EditProductComponent(){
             return {...product}
         })
     }
+    const notify = () => {toast.warn('please fill all fields', {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      
+      })};
     function editProduct(e){
         e.preventDefault()
         if (!product.name || !product.description || !product.price || !product.quantity || !product.category) {
-          alert("Please fill out all fields.");
+          notify();
           return;
       }
         axios.put(`http://localhost:8082/api/products/${id}`,product).then(response=>
@@ -45,6 +58,7 @@ export default function EditProductComponent(){
     return (
         <>
         <HeaderComponent></HeaderComponent>
+        <ToastContainer/>
         <div class="container">
         <h2 class="form-title">Add Product</h2>
         <form id="addProductForm" class="product-form">

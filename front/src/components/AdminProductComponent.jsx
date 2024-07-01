@@ -25,7 +25,8 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { colors } from "@mui/material";
 import FooterComponent from "./footer";
 import SearchIcon from '@mui/icons-material/Search';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const LightTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
 ))(({ theme }) => ({
@@ -70,6 +71,17 @@ export default function AdminProductComponent(){
             setProducts(response.data)
           setTotal(response.data)})
     },[])
+    const notify = () => {toast.success('product deleted successfully !!', {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      
+      })};
     function deleteProduct(id){
       let r=confirm("Do you want to delete ?");
       if(r==true){
@@ -77,6 +89,7 @@ export default function AdminProductComponent(){
             console.log(res.data);
             setTotal(total.filter((p)=>p._id!=id))
             setProducts(products.filter((p)=>p._id!=id))
+            notify()
         })
       }
     }
@@ -121,7 +134,7 @@ export default function AdminProductComponent(){
     return(
         <>
         <HeaderComponent></HeaderComponent>
-       
+       <ToastContainer/>
        <div className="box">
         <div className="b1"><CategoryIcon></CategoryIcon><h4>Total Products</h4>
         {total.length}
@@ -147,7 +160,7 @@ export default function AdminProductComponent(){
         </div>
        </div>
        <label for="search" > Search : </label>
-       <input type="text" placeholder="search by name" id="search" name="search" style={{width:350,margin:10,borderRadius:3,borderBlockColor:"#BD96BD"}} value={search} onChange={updatesearch}/>  <SearchIcon onClick={searchProduct} fontSize="small" style={{color:"#BD96BD"}}></SearchIcon>
+       <input type="text" placeholder="search by name" id="search" name="search" style={{width:350,margin:10,borderRadius:3,borderBlockColor:"#BD96BD"}} value={search} onChange={updatesearch}/><button style={{backgroundColor:"#BD96BD",border:"none",borderRadius:4,padding:3,width:30}}>  <SearchIcon onClick={searchProduct} fontSize="small" style={{color:"white"}}></SearchIcon></button>
         <TableContainer component={Paper} >
                 <Table  aria-label="customized table">
                     <TableHead >

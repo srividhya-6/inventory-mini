@@ -29,8 +29,14 @@ route.get("/api/orders",async (req,res)=>{
 })
 route.get("/api/orders/:id",async (req,res)=>{
     
-            let o=await order.find({userId:req.params.id});
+            let o=await order.find({userId:req.params.id,status:"place order"});
             res.send(o[0])   
+    
+})
+route.get("/api/myorders/:id",async (req,res)=>{
+    
+            let o=await order.find({userId:req.params.id,status:"order placed"});
+            res.send(o)   
     
 })
 route.post("/api/orders/",async (req,res)=>{
@@ -51,8 +57,8 @@ route.post("/api/orders/",async (req,res)=>{
     //         res.send("places an order")
     //     }
     // })
-            await order.create(req.body)
-            res.send("places an order")
+            let o=await order.create(req.body)
+            res.send(o)
     
    
 })

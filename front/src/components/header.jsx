@@ -121,7 +121,11 @@ function HeaderComponent() {
                   <Typography textAlign="center">Add Products</Typography>
                 </MenuItem>
                 <MenuItem  onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">Orders</Typography>
+                  <Typography textAlign="center">Cart</Typography>
+                </MenuItem>
+              
+                <MenuItem  onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">MyOrders</Typography>
                 </MenuItem>
               
             </Menu>
@@ -170,9 +174,18 @@ function HeaderComponent() {
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 <Tooltip title="View Orders" arrow>
-                Orders
+                {role=="admin"?"Orders":"cart"}
                 </Tooltip>
               </Button>
+              {role=="user"?<Button
+                
+                onClick={()=>navigate(`/myorders/${role}/${id}`)}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                <Tooltip title="View Orders" arrow>
+                My Orders
+                </Tooltip>
+              </Button>:""}
             
           </Box>
 

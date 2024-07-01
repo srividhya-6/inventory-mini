@@ -27,7 +27,7 @@ export default function HomeComponent(){
       
  
                   <Link to="/login" ><Button style={{color:"white",float:"right",backgroundColor:"#886C88",margin:10}}>Login</Button></Link>
-                  <Link to="/signup"><Button style={{color:"white",float:"right",margin:10,color:"#886C88",fontSize:15}}>signup</Button></Link>
+                  <Link to="/signup"><Button style={{float:"right",margin:10,color:"#886C88",fontSize:15}}>signup</Button></Link>
 
 
     

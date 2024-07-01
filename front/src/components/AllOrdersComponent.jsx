@@ -41,15 +41,16 @@ export default function AllOrdersComponent() {
     useEffect(() => {
         axios.get("http://localhost:8082/api/products").then(response=> {
             console.log(response.data);
-            setProducts(response.data)})
+            setProducts(response.data)
           
         axios.get(`http://localhost:8082/api/orders`)
             .then(response => {
-                
+                console.log(response.data)
                 setOrders(response.data);
             })
             .catch(error => {
                 console.error('Error fetching orders:', error);
+            })
             });
     }, []);
 
@@ -79,13 +80,13 @@ export default function AllOrdersComponent() {
                     
                         
                         {o.items.map((order)=>
-                        (order.quantity!=0?<StyledTableRow>
+                        ((order.quantity!=0 && products.find((p)=>p._id==order.productId))?<StyledTableRow>
                             <StyledTableCell component="th" scope="row">
                                 {order.productId}
                             </StyledTableCell>
                             
                             <StyledTableCell component="th" scope="row">
-                                    {products.find((p)=>p._id==order.productId).name}
+                                    {(products.find((p)=>p._id==order.productId)).name}
                                 </StyledTableCell>
                                 <StyledTableCell align="right">{order.quantity}</StyledTableCell>   
                                 <StyledTableCell align="right">{products.find((p)=>p._id==order.productId).price}</StyledTableCell>   

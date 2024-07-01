@@ -4,6 +4,8 @@ import HeaderComponent from "./header"
 import { useEffect, useState } from "react"
 import axios from "axios";
 import FooterComponent from "./footer";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function EditUserComponent(){
     let [user,setUser]=useState({});
     let [password,setPassword]=useState("")
@@ -16,6 +18,28 @@ export default function EditUserComponent(){
             setUser(res.data)
          })
     },[])
+    const notify = () => {toast.warn('UserName,Email and password should be filled.', {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      
+      })};
+    const notify2 = () => {toast.error('password does not match', {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      
+      })};
     function updateUser(e){
       e.preventDefault()
       let fname=e.target.name;
@@ -30,13 +54,13 @@ export default function EditUserComponent(){
 };
   function editUser(e){
     e.preventDefault()
-    if (!user.username || !user.email) {
-      alert("UserName and Email should be filled.");
+    if (!user.username || !user.email || !user.password) {
+      notify();
       return;
     }
     else if(password!=user.password){
       
-      alert("password does not match !!")
+      notify2()
       return;
     }
     axios.put(`http://localhost:8082/user/${id}`,user).then(response=>
@@ -50,6 +74,7 @@ export default function EditUserComponent(){
     return(
         <>
         <HeaderComponent></HeaderComponent>
+        <ToastContainer/>
         <div class="container">
         <h2 class="form-title">Edit Your Details</h2>
         <form id="addProductForm" class="product-form">
@@ -67,7 +92,7 @@ export default function EditUserComponent(){
           </div>
           <div class="form-group">
             <label for="productPrice" class="form-label">New Password:</label>
-            <input type="text" id="productPrice" name="password" class="form-input"  onChange={updateUser} required/>
+            <input type="text" id="productPrice" name="password" class="form-input" value={user.password} onChange={updateUser} required/>
           </div>
           <div class="form-group">
             <label for="productQuantity" class="form-label">Confirm Password:</label>

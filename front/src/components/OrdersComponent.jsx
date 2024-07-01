@@ -14,7 +14,8 @@ import axios from 'axios';
 import { useNavigate, useParams } from "react-router-dom";
 import HeaderComponent from "./header";
 import FooterComponent from "./footer";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     // backgroundColor: theme.palette.common.black,
@@ -42,15 +43,27 @@ export default function OrdersComponent() {
     useEffect(() => {
       axios.get("http://localhost:8082/api/products").then(response=> {
         console.log(response.data);
-        setProducts(response.data)})
+        setProducts(response.data)
       
         axios.get(`http://localhost:8082/api/orders/${id}`)
             .then(response => {
                 console.log(response.data);
                 setOrders(response.data);
             })
+          })
             
     }, []);
+    const notify = () => {toast.success('Your order got placed !!', {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      
+      })};
     function addProduct(pid){
         axios.get(`http://localhost:8082/api/products/${pid}`).then(res=>{
           let product=res.data;
@@ -99,9 +112,40 @@ export default function OrdersComponent() {
             })
           })
     }
+    function placeOrder(){
+      axios.get(`http://localhost:8082/api/orders/${id}`).then(res=>{
+        let order=res.data;
+        let oid=order._id
+        order.status="order placed";
+        product.quantity=product.quantity+1
+            axios.put(`http://localhost:8082/api/orders/${oid}`,order).then(res=>{ 
+                setOrders(order)
+                notify();
+                let newOrder={
+                  userId:id,
+                  items:[],
+                  totalPrice:0,
+                  status:"place order",
+                  orderDate: new Date().toLocaleDateString(),
+                  
+              }
+              axios.post("http://localhost:8082/api/orders",newOrder).then(res=>{
+                  setOrders(res.data)
+                 
+              })
+          }
+          ) 
+        })
+    }
     return (
+      
         <div style={{textAlign:"center"}}>
+          
         <HeaderComponent></HeaderComponent>
+       
+        <ToastContainer/>
+        {orders.items.length!=0?
+        <div>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 700 }} aria-label="customized table">
                     <TableHead>
@@ -117,13 +161,15 @@ export default function OrdersComponent() {
                     </TableHead>
                     <TableBody>
                         {orders.items.map((order) => (
-                             (order.quantity!=0)?
+                             (order.quantity!=0 && product.find(p=>p._id==order.productId))?
                             <StyledTableRow>
                                 <StyledTableCell component="th" scope="row">
                                     {order.productId}
                                 </StyledTableCell>
                                 <StyledTableCell component="th" scope="row">
-                                    {product.find((p)=>p._id==order.productId).name}
+                                    {
+                                    product.find(p=>p._id==order.productId).name
+                                    }
                                 </StyledTableCell>
                                 <StyledTableCell align="right">{order.quantity}</StyledTableCell>   
                                 <StyledTableCell align="right">{product.find((p)=>p._id==order.productId).price}</StyledTableCell>   
@@ -135,7 +181,8 @@ export default function OrdersComponent() {
                 </Table>
             </TableContainer><br /><br />
                         <h3>Total Amount : {(orders.totalPrice).toFixed(2)}</h3>
-            <Button variant="contained" className="btn" style={{textAlign:"center"}}>Place Order</Button><br /><br />
+            <Button variant="contained" className="btn" style={{textAlign:"center"}} onClick={placeOrder}>Place Order</Button><br /><br />
+            </div>:<div style={{height:400,textAlign:"center"}}><h3>--No Orders--</h3></div>}
             <FooterComponent></FooterComponent>
         </div>
     );

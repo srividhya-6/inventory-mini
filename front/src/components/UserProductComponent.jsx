@@ -20,6 +20,8 @@ import axios from 'axios';
 import HeaderComponent from './header';
 import { useNavigate, useParams } from "react-router-dom";
 import FooterComponent from './footer';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     // backgroundColor: theme.palette.common.black,
@@ -30,7 +32,17 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontSize: 14,
   },
 }));
-
+const notify = () => {toast.success('product added successfully !!', {
+  position: "top-right",
+  autoClose: 2000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "light",
+  
+  })};
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
     backgroundColor: theme.palette.action.hover,
@@ -88,6 +100,7 @@ export default function ProductComponent(){
             axios.put(`http://localhost:8082/api/products/${id}`,product).then(res=>{
               setProducts(res.data)
               setTotal(res.data)
+              notify()
             }
             ) 
           })
@@ -99,8 +112,9 @@ export default function ProductComponent(){
 
       <>
         <HeaderComponent></HeaderComponent>
+        <ToastContainer />
         <label for="search" > Search : </label>
-       <input type="text" placeholder="search by name" id="search" name="search" style={{width:350,margin:10,borderRadius:3,borderBlockColor:"#BD96BD"}} value={search} onChange={updatesearch}/>  <button style={{backgroundColor:"#BD96BD",border:"none",borderRadius:4,padding:3,width:30}}><SearchIcon onClick={searchProduct} fontSize="small" style={{color:"white"}}></SearchIcon></button>
+       <input type="text" placeholder="search by name" id="search" name="search" style={{width:350,margin:10,borderRadius:3,borderBlockColor:"#BD96BD"}} value={search} onChange={updatesearch}/>  <button type='submit' style={{backgroundColor:"#BD96BD",border:"none",borderRadius:4,padding:3,width:30}}><SearchIcon onClick={searchProduct} fontSize="small" style={{color:"white"}}></SearchIcon></button>
         
       <TableContainer component={Paper}>
               <Table sx={{ minWidth: 700 }} aria-label="customized table">

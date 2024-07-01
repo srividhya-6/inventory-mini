@@ -8,7 +8,21 @@ import axios from 'axios';
 import "./newProduct.css"
 import HeaderComponent from './header';
 import FooterComponent from './footer';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function NewProductComponent(){
+  const notify = () => {toast.warn('please fill all fields', {
+    position: "top-right",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    
+    })};
+  
     const navigate=useNavigate()
     let [product,setProduct]=useState({
         name:"",
@@ -30,12 +44,13 @@ export default function NewProductComponent(){
     function addProduct(e){
         e.preventDefault()
          if (!product.name || !product.description || !product.price || !product.quantity || !product.category) {
-            alert("Please fill out all fields.");
+            notify();
             return;
         }
         axios.post("http://localhost:8082/api/products",product).then(response=>
          {
             console.log(response.data);
+           
             navigate("/products")
 
         })
@@ -43,6 +58,7 @@ export default function NewProductComponent(){
     return (
         <>
         <HeaderComponent></HeaderComponent>
+        <ToastContainer />
         <div class="container">
         <h2 class="form-title">Add Product</h2>
         <form id="addProductForm" class="product-form needs-validation" noValidate>
