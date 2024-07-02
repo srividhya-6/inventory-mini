@@ -99,13 +99,16 @@ export default function OrdersComponent() {
               let r=order.items.find(p=>p.productId==pid)
               
                 r.quantity=r.quantity-1;
-             
+                let r1=order.items.findIndex(p=>p.productId==pid)
+                if(r.quantity==0){
+                  order.items.splice(r1,1);
+                }
               order.totalPrice=order.totalPrice-product.price;
               
               product.quantity=product.quantity+1
               axios.put(`http://localhost:8082/api/products/${pid}`,product).then(res=>{
                   axios.put(`http://localhost:8082/api/orders/${oid}`,order).then(res=>{
-                      
+                      console.log(order.items)
                       setOrders(order)
                 }
                 ) 
@@ -181,7 +184,7 @@ export default function OrdersComponent() {
                     </TableBody>
                 </Table>
             </TableContainer><br /><br />
-                        <h3>Total Amount : {(orders.totalPrice).toFixed(2)}</h3>
+                        <h4>Total Amount : {(orders.totalPrice).toFixed(2)} INR</h4>
             <Button variant="contained" className="btn" style={{textAlign:"center"}} onClick={placeOrder}>Place Order</Button><br /><br />
             </div>
             :<div><img src={emptycart} style={{position:"relative"}}></img></div>}

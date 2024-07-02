@@ -18,6 +18,11 @@ import HomeComponent from "./HomeComponent";
 import HeaderComponent from "./header";
 import FooterComponent from "./footer";
 export default function ProductComponent(){
+    let c=document.cookie.split(";")
+  let role=c[0].split("=")[1];
+  
+  let profile=c[2].split("=")[1];
+   profile = decodeURIComponent(profile)
     const navigate=useNavigate()
     let { id } = useParams();
     let [product,setProduct]=useState({});
@@ -86,8 +91,9 @@ export default function ProductComponent(){
             </Typography>
           </CardContent>
           <CardActions>
-            <Button type="submit" className="btn" size="small" onClick={()=>navigate(`/products/edit/${product._id}`)}>Edit</Button>
-            <Button type="submit" className="btn" size="small" onClick={()=>deleteProduct(product._id)}>Delete</Button>
+            {role=="admin"?<Button type="submit" className="btn" size="small" onClick={()=>navigate(`/products/edit/${product._id}`)}>Edit</Button>:""}
+            {role=="admin"?<Button type="submit" className="btn" size="small" onClick={()=>deleteProduct(product._id)}>Delete</Button>:""}
+            
            
           </CardActions>
         </Card>

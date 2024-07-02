@@ -58,7 +58,7 @@ export default function MyOrdersComponent() {
     
     return (
       
-        <div style={{textAlign:"center"}}>
+        <div >
           
         <HeaderComponent></HeaderComponent>
        
@@ -67,7 +67,8 @@ export default function MyOrdersComponent() {
         <div>
             {orders.map((order)=>(
             <TableContainer component={Paper}>
-                <h4>Order ID : {order._id}</h4>
+                <p style={{fontSize:20}}>Order ID : {order._id}</p>
+                
                 <Table sx={{ minWidth: 700 }} aria-label="customized table">
                     <TableHead>
                         <TableRow className="tablehead">
@@ -98,10 +99,18 @@ export default function MyOrdersComponent() {
                                 </StyledTableRow>:""
                         ))}
                     </TableBody>
-                </Table>
+                </Table><br />
+                <div style={{borderBlockStyle:"dashed",borderWidth:1.5,margin:3,padding:3,borderBlockColor:"black"}}>
+                <p>Total Price : {order.totalPrice.toFixed(2)}</p>
+                <p>Status : {order.status}</p>
+                <p>Date of Order Placed : {order.orderDate}</p>
+                <br></br>
+                </div>
+                <hr></hr>
+                <br /><br />
             </TableContainer>
             ))}
-            <br /><br />
+            
                         {/* <h3>Total Amount : {(orders.totalPrice).toFixed(2)}</h3> */}
             
             </div>:<div><img src={emptycart} style={{position:"relative",left:500}}></img></div>}

@@ -83,6 +83,10 @@ export default function EditProductComponent(){
             <input type="text" id="productCategory" name="category" class="form-input" value={product.category} onChange={updateProduct} required/>
           </div>
           <div class="form-group">
+            <label for="productImage" class="form-label">Image URL:</label>
+            <input type="text" id="productImage" name="image" class="form-input" onChange={updateProduct} value={product.image} required/>
+          </div>
+          <div class="form-group">
             <button type="submit" class="form-button" onClick={editProduct}>Edit Product</button>
           </div>
         </form>

@@ -16,7 +16,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import axios from 'axios';
+import noproduct from "../assets/images/noproduct.jpg"
 import HeaderComponent from './header';
 import { useNavigate, useParams } from "react-router-dom";
 import FooterComponent from './footer';
@@ -116,7 +118,7 @@ export default function ProductComponent(){
         <label for="search" > Search : </label>
        <input type="text" placeholder="search by name" id="search" name="search" style={{width:350,margin:10,borderRadius:3,borderBlockColor:"#BD96BD"}} value={search} onChange={updatesearch}/>  <button type='submit' style={{backgroundColor:"#BD96BD",border:"none",borderRadius:4,padding:3,width:30}}><SearchIcon onClick={searchProduct} fontSize="small" style={{color:"white"}}></SearchIcon></button>
         
-      <TableContainer component={Paper}>
+       {products.length!=0?<TableContainer component={Paper}>
               <Table sx={{ minWidth: 700 }} aria-label="customized table">
                   <TableHead>
                       <TableRow className='tablehead'>
@@ -131,8 +133,8 @@ export default function ProductComponent(){
                   </TableHead>
                   <TableBody>
                       {products.map((p) => (
-                           
-                          <StyledTableRow>
+                           <Tooltip title="Double click to view the Product" arrow>
+                          <StyledTableRow onDoubleClick={()=>navigate(`/products/view/${p._id}`)}>
                               <StyledTableCell component="th" scope="row">
                                   {p._id}
                               </StyledTableCell>
@@ -143,10 +145,11 @@ export default function ProductComponent(){
                               <StyledTableCell align="left">{p.quantity}</StyledTableCell>   
                               <StyledTableCell align="left">{p.quantity>0 ? <Button variant="contained" size="small" type='submit' onClick={()=>addProduct(p._id)} className='btn'>+</Button>:"nostock"}</StyledTableCell>   
                           </StyledTableRow>
+                          </Tooltip>
                       ))}
                   </TableBody>
               </Table>
-          </TableContainer><br /><br />
+          </TableContainer>:<div><img src={noproduct} style={{position:"relative",left:500}}></img></div>}<br /><br />
           {add?<Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
   Product Added Scuuessfully
 </Alert>:""}

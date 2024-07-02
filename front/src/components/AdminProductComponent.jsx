@@ -166,6 +166,7 @@ export default function AdminProductComponent(){
         {products.length!=0?<TableContainer component={Paper} >
                 <Table  aria-label="customized table">
                     <TableHead >
+                    
                         <TableRow className="tablehead">
                             <StyledTableCell align="left">ProductId</StyledTableCell>
                             <StyledTableCell align="left">Name</StyledTableCell>
@@ -178,34 +179,34 @@ export default function AdminProductComponent(){
                     </TableHead>
                     <TableBody>
                         {products.map((p) => (
-                             
-                            <StyledTableRow onDoubleClick={()=>navigate(`/products/view/${p._id}`)}>
-                                <StyledTableCell component="th" scope="row">
-                                    {p._id}
-                                </StyledTableCell>
-                                <StyledTableCell align="left">{p.name}</StyledTableCell>   
-                                <StyledTableCell align="left">{p.category}</StyledTableCell>   
-                                <StyledTableCell align="left">{p.description}</StyledTableCell>   
-                                <StyledTableCell align="left">{p.price}</StyledTableCell>   
-                                <StyledTableCell align="left">{p.quantity}</StyledTableCell>   
-                                <StyledTableCell align="left">
-                                
-                                <Tooltip title="Edit" onClick={()=>navigate(`/products/edit/${p._id}`)}>
-                                    <IconButton>
-                                      <EditIcon />
-                                    </IconButton>
-                                  </Tooltip>
-                                
-                                  
-                                  &nbsp;&nbsp;
-                                  <Tooltip title="Delete" onClick={()=>deleteProduct(p._id)}>
-                                    <IconButton>
-                                      <DeleteIcon />
-                                    </IconButton>
-                                  </Tooltip>
-                               
-                                </StyledTableCell>   
-                            </StyledTableRow>
+                             <Tooltip title="Double click to view the Product" arrow><StyledTableRow onDoubleClick={() => navigate(`/products/view/${p._id}`)}>
+                            <StyledTableCell component="th" scope="row">
+                              {p._id}
+                            </StyledTableCell>
+                            <StyledTableCell align="left">{p.name}</StyledTableCell>
+                            <StyledTableCell align="left">{p.category}</StyledTableCell>
+                            <StyledTableCell align="left">{p.description}</StyledTableCell>
+                            <StyledTableCell align="left">{p.price}</StyledTableCell>
+                            <StyledTableCell align="left">{p.quantity}</StyledTableCell>
+                            <StyledTableCell align="left">
+
+                              <Tooltip title="Edit" onClick={() => navigate(`/products/edit/${p._id}`)}>
+                                <IconButton>
+                                  <EditIcon />
+                                </IconButton>
+                              </Tooltip>
+
+
+                              &nbsp;&nbsp;
+                              <Tooltip title="Delete" onClick={() => deleteProduct(p._id)}>
+                                <IconButton>
+                                  <DeleteIcon />
+                                </IconButton>
+                              </Tooltip>
+
+                            </StyledTableCell>
+                          </StyledTableRow>
+                          </Tooltip>
                           ))}
                     </TableBody>
                 </Table>
