@@ -6,31 +6,17 @@ const jwt=require("jsonwebtoken")
 route.use(express.json());
 route.use(express.urlencoded({extended:true}));
 
-// app.set("view engine","ejs");
-// route.get("/login",(req,res)=>{
-//     res.render("login.ejs");
-// })
-// route.get("/signup",(req,res)=>{
-//     res.render("signup.ejs");
-// })
-// user.create({username:"srividhya",email:"srividhya@gmail.com",password:"srividhya@6",role:"admin"})
 route.get("/user/:id",async(req,res)=>{
     let u=await user.findById(req.params.id)
     console.log(u)
     res.send(u);
 })
 route.put("/user/:id",async (req,res)=>{
-    // jwt.verify(req.token,"secret admin key",async (err,data)=>{
-    //     if(err){
-    //         res.send("user is not valid")
-    //     }
-        // else{
+    
             let o=req.body;
             await user.findByIdAndUpdate(req.params.id,o)
             res.json(await user.find({}))
-    //     }
-    // })
-    
+   
 })
 route.post("/login",async (req,res)=>{
 
@@ -54,13 +40,7 @@ route.post("/signup",async (req,res)=>{
     const us=await user.create(u)
     res.send(us)
     }
-    // jwt.sign({u},"secret signup key",(err,token)=>{
-    //     res.json({token})
-    // })
+   
 })
-// function verifyToken(req,res,next){
-//     token=req.headers.authorization.split(" ")[1];
-//     req.token=token;
-//     next();
-// }
+
 module.exports={route}

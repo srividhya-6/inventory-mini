@@ -79,6 +79,20 @@ export default function EditProductComponent(){
             <input type="number" id="productQuantity" name="quantity" class="form-input" min="0" value={product.quantity} onChange={updateProduct} required/>
           </div>
           <div class="form-group">
+            <label for="productlocation" class="form-label">location:</label>
+            <select  value={product.location} id="productlocation" name="location" class="form-textarea" rows="3" onChange={updateProduct}  required>
+              <option value="">select option</option>
+              <option value="Zone-A/Row1" >Zone-A/Row1</option>
+              <option value="Zone-A/Row2">Zone-A/Row2</option>
+              <option value="Zone-B/Row1">Zone-B/Row1</option>
+              <option value="Zone-B/Row2">Zone-B/Row2</option>
+              <option value="Zone-C/Row1">Zone-C/Row1</option>
+              <option value="Zone-C/Row2">Zone-C/Row2</option>
+              <option value="Zone-D/Row1">Zone-D/Row1</option>
+              <option value="Zone-D/Row2">Zone-D/Row2</option>
+            </select>
+          </div>
+          <div class="form-group">
             <label for="productCategory" class="form-label">Category:</label>
             <input type="text" id="productCategory" name="category" class="form-input" value={product.category} onChange={updateProduct} required/>
           </div>

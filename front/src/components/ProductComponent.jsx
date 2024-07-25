@@ -71,12 +71,15 @@ export default function ProductComponent(){
           component="img"
           alt="green iguana"
           height="200"
-          image="https://static.vecteezy.com/system/resources/previews/004/141/669/original/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg"
+          image="image"
         />}
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               {product.name}
             </Typography>
+            <Typography gutterBottom variant="h5" component="div">
+              <img src={product.image} alt={product.name} />
+            </Typography> 
             <Typography variant="body2" color="text.secondary">
               {product.description}
             </Typography>
@@ -93,8 +96,7 @@ export default function ProductComponent(){
           <CardActions>
             {role=="admin"?<Button type="submit" className="btn" size="small" onClick={()=>navigate(`/products/edit/${product._id}`)}>Edit</Button>:""}
             {role=="admin"?<Button type="submit" className="btn" size="small" onClick={()=>deleteProduct(product._id)}>Delete</Button>:""}
-            
-           
+             
           </CardActions>
         </Card>
         </div>

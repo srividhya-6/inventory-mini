@@ -10,7 +10,6 @@ import { Link } from 'react-router-dom';
 import { red } from '@mui/material/colors';
 
 import background from "../assets/images/background.png"
-
 const styles = {
   container: {
       margin: 0,
@@ -24,18 +23,9 @@ export default function HomeComponent(){
     const color = red[100];
     return(
       <div style={styles.container}>
-      
- 
-                  <Link to="/login" ><Button style={{color:"white",float:"right",backgroundColor:"#886C88",margin:10}}>Login</Button></Link>
-                  <Link to="/signup"><Button style={{float:"right",margin:10,color:"#886C88",fontSize:15}}>signup</Button></Link>
-
-
-    
-            </div>
-            // <>
-            //     <Link to="/login">Login</Link>
-            //       <Link to="/signup">signup</Link>
-            // </>
+            <Link to="/login" ><Button style={{color:"white",float:"right",backgroundColor:"#886C88",margin:10}}>Login</Button></Link>
+            <Link to="/signup"><Button style={{float:"right",margin:10,color:"#886C88",fontSize:15}}>signup</Button></Link>
+      </div>
           );
     
 }

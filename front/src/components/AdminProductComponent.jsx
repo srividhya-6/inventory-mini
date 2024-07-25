@@ -133,6 +133,12 @@ export default function AdminProductComponent(){
     let c=total.filter((p)=>p.quantity!=0)
     return c.length
    }
+   const styles = {
+    container: {
+        margin: 0,
+        width: "100px",
+    }
+  };
     return(
         <>
         <HeaderComponent></HeaderComponent>
@@ -162,14 +168,16 @@ export default function AdminProductComponent(){
         </div>
        </div>
        <label for="search" > Search : </label>
-       <input type="text" placeholder="search by name" id="search" name="search" style={{width:350,margin:10,borderRadius:3,borderBlockColor:"#BD96BD"}} value={search} onChange={updatesearch}/><button style={{backgroundColor:"#BD96BD",border:"none",borderRadius:4,padding:3,width:30}}>  <SearchIcon onClick={searchProduct} fontSize="small" style={{color:"white"}}></SearchIcon></button>
+       <input type="text" placeholder="search by name" id="search" name="search" style={{width:350,margin:10,borderRadius:3,borderBlockColor:"#BD96BD"}} value={search} onChange={updatesearch}/>
+       <button style={{backgroundColor:"#BD96BD",border:"none",borderRadius:4,padding:3,width:30}}>  <SearchIcon onClick={searchProduct} fontSize="small" style={{color:"white"}}></SearchIcon></button>
         {products.length!=0?<TableContainer component={Paper} >
                 <Table  aria-label="customized table">
                     <TableHead >
-                    
                         <TableRow className="tablehead">
                             <StyledTableCell align="left">ProductId</StyledTableCell>
                             <StyledTableCell align="left">Name</StyledTableCell>
+                            <StyledTableCell align="left" >Image</StyledTableCell>
+                            <StyledTableCell align="left" >location</StyledTableCell>
                             <StyledTableCell align="left">Category</StyledTableCell>
                             <StyledTableCell align="left">Description</StyledTableCell>
                             <StyledTableCell align="left">Price</StyledTableCell>
@@ -178,25 +186,25 @@ export default function AdminProductComponent(){
                         </TableRow>
                     </TableHead>
                     <TableBody>
+                   
                         {products.map((p) => (
                              <Tooltip title="Double click to view the Product" arrow><StyledTableRow onDoubleClick={() => navigate(`/products/view/${p._id}`)}>
                             <StyledTableCell component="th" scope="row">
                               {p._id}
                             </StyledTableCell>
                             <StyledTableCell align="left">{p.name}</StyledTableCell>
+                            <StyledTableCell align="left" ><img src={p.image} alt={p.name} width={100} /></StyledTableCell>
+                            <StyledTableCell align="left" >{p.location}</StyledTableCell>
                             <StyledTableCell align="left">{p.category}</StyledTableCell>
                             <StyledTableCell align="left">{p.description}</StyledTableCell>
                             <StyledTableCell align="left">{p.price}</StyledTableCell>
                             <StyledTableCell align="left">{p.quantity}</StyledTableCell>
                             <StyledTableCell align="left">
-
-                              <Tooltip title="Edit" onClick={() => navigate(`/products/edit/${p._id}`)}>
+                            <Tooltip title="Edit" onClick={() => navigate(`/products/edit/${p._id}`)}>
                                 <IconButton>
                                   <EditIcon />
                                 </IconButton>
                               </Tooltip>
-
-
                               &nbsp;&nbsp;
                               <Tooltip title="Delete" onClick={() => deleteProduct(p._id)}>
                                 <IconButton>

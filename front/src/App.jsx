@@ -22,7 +22,6 @@ function App() {
     <BrowserRouter>
     
       <Routes>
-        
         <Route path="/" exact element={<HomeComponent></HomeComponent>}/>
         <Route path="/login" exact element={<LoginComponent></LoginComponent>}/>
         <Route path="/signup" exact element={<SignupComponent></SignupComponent>}/>
@@ -39,7 +38,7 @@ function App() {
         <Route path="/account/:id" exact element={<AccountComponent></AccountComponent>}/>
         <Route path="/products/edit/:id" exact element={<EditProductComponent></EditProductComponent>}/>
         {/* <Route path="/products/delete" exact element={<ProductComponent></ProductComponent>}/> */}
-        
+
         
       </Routes>
       

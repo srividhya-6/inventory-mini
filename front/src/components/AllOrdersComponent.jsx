@@ -62,7 +62,6 @@ export default function AllOrdersComponent() {
                     <div>
                     <p>OrderId : {o._id}</p>
                     <p>UserId : {o.userId}
-
                     </p>
             <TableContainer component={Paper}>
             <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -77,8 +76,6 @@ export default function AllOrdersComponent() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    
-                        
                         {o.items.map((order)=>
                         ((order.quantity!=0 && products.find((p)=>p._id==order.productId))?<StyledTableRow>
                             <StyledTableCell component="th" scope="row">
@@ -99,9 +96,7 @@ export default function AllOrdersComponent() {
             </Table>
         </TableContainer><br /><br />
         </div>:""
-                
-                
-                
+   
                ))}
            <FooterComponent></FooterComponent>
         </>

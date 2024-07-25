@@ -87,6 +87,7 @@ export default function ProductComponent(){
         axios.get(`http://localhost:8082/api/orders/${uid}`).then(res=>{
           let order=res.data;
           oid=order._id
+
           let r=order.items.find(p=>p.productId==id)
           if(r){
             r.quantity=r.quantity+1;
@@ -124,11 +125,12 @@ export default function ProductComponent(){
                       <TableRow className='tablehead'>
                           <StyledTableCell align="left">ProductId</StyledTableCell>
                           <StyledTableCell align="left">Name</StyledTableCell>
+                          <StyledTableCell align="left">image</StyledTableCell>
                           <StyledTableCell align="left">Category</StyledTableCell>
                           <StyledTableCell align="left">Description</StyledTableCell>
                           <StyledTableCell align="left">Price</StyledTableCell>
                           <StyledTableCell align="left">Quantity</StyledTableCell>   
-                          <StyledTableCell align="left">Control</StyledTableCell>   
+                          <StyledTableCell align="left">Add Cart</StyledTableCell>   
                       </TableRow>
                   </TableHead>
                   <TableBody>
@@ -139,11 +141,12 @@ export default function ProductComponent(){
                                   {p._id}
                               </StyledTableCell>
                               <StyledTableCell align="left">{p.name}</StyledTableCell>   
+                              <StyledTableCell align="left"><img src={p.image} width={80} alt={p.name}/></StyledTableCell> 
                               <StyledTableCell align="left">{p.category}</StyledTableCell>   
                               <StyledTableCell align="left">{p.description}</StyledTableCell>   
                               <StyledTableCell align="left">{p.price}</StyledTableCell>   
                               <StyledTableCell align="left">{p.quantity}</StyledTableCell>   
-                              <StyledTableCell align="left">{p.quantity>0 ? <Button variant="contained" size="small" type='submit' onClick={()=>addProduct(p._id)} className='btn'>+</Button>:"nostock"}</StyledTableCell>   
+                              <StyledTableCell align="left">{p.quantity>0 ? <Button variant="contained" size="small" type='submit' onClick={()=>addProduct(p._id)} className='btn'>add cart</Button>:"nostock"}</StyledTableCell>   
                           </StyledTableRow>
                           </Tooltip>
                       ))}
@@ -151,7 +154,7 @@ export default function ProductComponent(){
               </Table>
           </TableContainer>:<div><img src={noproduct} style={{position:"relative",left:500}}></img></div>}<br /><br />
           {add?<Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
-  Product Added Scuuessfully
+  Product Added Successfully
 </Alert>:""}
     
 <FooterComponent></FooterComponent>
