@@ -120,6 +120,9 @@ function HeaderComponent() {
                 <MenuItem  onClick={()=>navigate("/product/new")}>
                   <Typography textAlign="center">Add Products</Typography>
                 </MenuItem>
+                <MenuItem  onClick={()=>navigate("/product/pie")}>
+                  <Typography textAlign="center">Analysis</Typography>
+                </MenuItem>
                 <MenuItem  onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">Cart</Typography>
                 </MenuItem>
@@ -127,6 +130,7 @@ function HeaderComponent() {
                 <MenuItem  onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">MyOrders</Typography>
                 </MenuItem>
+               
               
             </Menu>
           </Box>
@@ -168,6 +172,7 @@ function HeaderComponent() {
                 Add Product
                 </Tooltip>
               </Button>:""}
+              
               <Button
                 
                 onClick={()=>navigate(`/orders/${role}/${id}`)}
@@ -186,7 +191,15 @@ function HeaderComponent() {
                 My Orders
                 </Tooltip>
               </Button>:""}
-            
+              {role=="admin"?<Button
+                
+                onClick={()=>navigate("/product/pie")}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                <Tooltip title="Add A New Product" arrow>
+                Analysis
+                </Tooltip>
+              </Button>:""}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>

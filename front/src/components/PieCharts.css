@@ -1,0 +1,44 @@
+body {
+    background-color: #e6f7ff; /* Light blue background color */
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .analysis-container {
+    text-align: center;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+  }
+  
+  .page-title {
+    font-size: 36px;
+    color: #333333;
+    margin-bottom: 30px;
+    font-weight: bold;
+  }
+  
+  .chart-title {
+    font-size: 24px;
+    color: #4a90e2;
+    margin-bottom: 20px;
+  }
+  
+  h1, h2 {
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+  }
+  
+  .responsive-container {
+    margin: 0 auto;
+    padding: 10px;
+  }
+  
+  .bar-chart, .pie-chart {
+    margin-top: 30px;
+  }
+  

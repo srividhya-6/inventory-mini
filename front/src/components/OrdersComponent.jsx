@@ -68,12 +68,18 @@ export default function OrdersComponent() {
     function addProduct(pid){
         axios.get(`http://localhost:8082/api/products/${pid}`).then(res=>{
           let product=res.data;
-          
+          console.log(res.data);
           axios.get(`http://localhost:8082/api/orders/${id}`).then(res=>{
             let order=res.data;
-            let oid=order._id
-            let r=order.items.findIndex(p=>p.productId==pid)
-            order.items[r].quantity=order.items[r].quantity+1
+            if(!order)
+            {
+              setOrders(product);
+            }
+            else{
+              var oid=order._id
+              var r=order.items.findIndex(p=>p.productId==pid)
+              order.items[r].quantity=order.items[r].quantity+1
+          }
             
             order.totalPrice=order.totalPrice+product.price;
            
@@ -148,7 +154,7 @@ export default function OrdersComponent() {
         <HeaderComponent></HeaderComponent>
        
         <ToastContainer/>
-        {orders.items.length!=0?
+        {/* {orders.items.length!=0? */orders?
         <div>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 700 }} aria-label="customized table">
