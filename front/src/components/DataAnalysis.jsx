@@ -8,15 +8,7 @@ const orderStaus = [
   { staus: 'Pending', quan: 50 },
   { staus: 'cancelled', quan: 30 },
 ];
-const data = [
-  { loc: 'row1', quantity: 40 },
-  { loc: 'row2', quantity: 30 },
-  { loc: 'row3', quantity: 20 },
-  { loc: 'row4', quantity: 27 },
-  { loc: 'row5', quantity: 18 },
-  { loc: 'row6', quantity: 23 },
-  { loc: 'row7', quantity: 34 },
-];
+
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 function DataAnalysis() {
   let [products,setProducts]=useState([]);

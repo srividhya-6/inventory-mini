@@ -12,13 +12,12 @@ const itemsSchema=mongoose.Schema({
 })
 const orderSchema=mongoose.Schema(
     {
-
         userId:
             {
                 type:mongoose.Schema.Types.ObjectId,
                 ref:"user"
             },
-       
+    
         items:[itemsSchema],
         totalPrice:Number,
         status:String,
