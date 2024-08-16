@@ -180,6 +180,8 @@ export default function AdminProductComponent(){
                             <StyledTableCell align="left" >location</StyledTableCell>
                             <StyledTableCell align="left">Category</StyledTableCell>
                             <StyledTableCell align="left">Description</StyledTableCell>
+                            <StyledTableCell align="left" >Image</StyledTableCell>
+                            <StyledTableCell align="left" >location</StyledTableCell>
                             <StyledTableCell align="left">Price</StyledTableCell>
                             <StyledTableCell align="left">Quantity</StyledTableCell>   
                             <StyledTableCell align="left">Controls</StyledTableCell>   
@@ -197,6 +199,8 @@ export default function AdminProductComponent(){
                             <StyledTableCell align="left" >{p.location}</StyledTableCell>
                             <StyledTableCell align="left">{p.category}</StyledTableCell>
                             <StyledTableCell align="left">{p.description}</StyledTableCell>
+                            <StyledTableCell align="left" ><img src={p.image} alt={p.name} width={100} /></StyledTableCell>
+                            <StyledTableCell align="left" >{p.location}</StyledTableCell>
                             <StyledTableCell align="left">{p.price}</StyledTableCell>
                             <StyledTableCell align="left">{p.quantity}</StyledTableCell>
                             <StyledTableCell align="left">

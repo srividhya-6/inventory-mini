@@ -9,6 +9,7 @@ const userSchema=mongoose.Schema(
         email:String,
         password:String,
         role:String,
+        address:String,
         profile:String
     }
 )

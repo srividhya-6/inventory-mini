@@ -21,6 +21,7 @@ const orderSchema=mongoose.Schema(
         items:[itemsSchema],
         totalPrice:Number,
         status:String,
+        address:String,
         orderDate:String
     }
 )

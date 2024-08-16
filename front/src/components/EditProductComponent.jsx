@@ -63,20 +63,12 @@ export default function EditProductComponent(){
         <h2 class="form-title">Add Product</h2>
         <form id="addProductForm" class="product-form">
           <div class="form-group">
-            <label for="productName" class="form-label">Product Name:</label>
+            <label for="productName" class="form-label">Product Name * :</label>
             <input type="text" id="productName" name="name" class="form-input" value={product.name} onChange={updateProduct} required/>
           </div>
           <div class="form-group">
-            <label for="productDescription" class="form-label">Description:</label>
+            <label for="productDescription" class="form-label">Description * :</label>
             <textarea id="productDescription" name="description" class="form-textarea" rows="3" value={product.description} onChange={updateProduct} required></textarea>
-          </div>
-          <div class="form-group">
-            <label for="productPrice" class="form-label">Price:</label>
-            <input type="number" id="productPrice" name="price" class="form-input" step="0.01" min="0" value={product.price} onChange={updateProduct} required/>
-          </div>
-          <div class="form-group">
-            <label for="productQuantity" class="form-label">Quantity:</label>
-            <input type="number" id="productQuantity" name="quantity" class="form-input" min="0" value={product.quantity} onChange={updateProduct} required/>
           </div>
           <div class="form-group">
             <label for="productlocation" class="form-label">location:</label>
@@ -92,8 +84,17 @@ export default function EditProductComponent(){
               <option value="Zone-D/Row2">Zone-D/Row2</option>
             </select>
           </div>
+          
           <div class="form-group">
-            <label for="productCategory" class="form-label">Category:</label>
+            <label for="productPrice" class="form-label">Price * :</label>
+            <input type="number" id="productPrice" name="price" class="form-input" step="0.01" min="0" value={product.price} onChange={updateProduct} required/>
+          </div>
+          <div class="form-group">
+            <label for="productQuantity" class="form-label">Quantity * :</label>
+            <input type="number" id="productQuantity" name="quantity" class="form-input" min="0" value={product.quantity} onChange={updateProduct} required/>
+          </div>
+          <div class="form-group">
+            <label for="productCategory" class="form-label">Category * :</label>
             <input type="text" id="productCategory" name="category" class="form-input" value={product.category} onChange={updateProduct} required/>
           </div>
           <div class="form-group">
