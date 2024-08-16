@@ -18,7 +18,7 @@ export default function EditUserComponent(){
             setUser(res.data)
          })
     },[])
-    const notify = () => {toast.warn('UserName,Email and password should be filled.', {
+    const notify = () => {toast.warn('fill all the required fields', {
       position: "top-right",
       autoClose: 2000,
       hideProgressBar: false,
@@ -58,6 +58,10 @@ export default function EditUserComponent(){
       notify();
       return;
     }
+    else if(!user.email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)){
+      alert("enter valid email")
+      return;
+    }
     else if(password!=user.password){
       
       notify2()
@@ -79,11 +83,11 @@ export default function EditUserComponent(){
         <h2 class="form-title">Edit Your Details</h2>
         <form id="addProductForm" class="product-form">
           <div class="form-group">
-            <label for="productName" class="form-label">UserName:</label>
+            <label for="productName" class="form-label">UserName * :</label>
             <input type="text" id="productName" name="username" class="form-input" value={user.username} onChange={updateUser} required/>
           </div>
           <div class="form-group">
-            <label for="productDescription" class="form-label">Email:</label>
+            <label for="productDescription" class="form-label">Email * :</label>
             <textarea id="productDescription" name="email" class="form-textarea" rows="1" value={user.email} onChange={updateUser} required></textarea>
           </div>
           <div class="form-group">
@@ -91,11 +95,15 @@ export default function EditUserComponent(){
             <textarea id="productDescription" name="profile" class="form-textarea" rows="3" value={user.profile} onChange={updateUser} required></textarea>
           </div>
           <div class="form-group">
-            <label for="productPrice" class="form-label">New Password:</label>
+            <label for="productaddress" class="form-label">Address:</label>
+            <textarea id="productDescription" name="address" class="form-textarea" rows="3" value={user.address} onChange={updateUser} required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="productPrice" class="form-label">New Password * :</label>
             <input type="text" id="productPrice" name="password" class="form-input" value={user.password} onChange={updateUser} required/>
           </div>
           <div class="form-group">
-            <label for="productQuantity" class="form-label">Confirm Password:</label>
+            <label for="productQuantity" class="form-label">Confirm Password * :</label>
             <input type="password" id="productQuantity" name="quantity" class="form-input"   onChange={handlePasswordChange} required/>
           </div>
           

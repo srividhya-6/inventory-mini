@@ -114,20 +114,22 @@ function HeaderComponent() {
               }}
             >
               
-                <MenuItem  onClick={handleCloseNavMenu}>
+                <MenuItem  onClick={()=>navigate(`/products/${role}/${id}`)}>
                   <Typography textAlign="center">Products</Typography>
                 </MenuItem>
-                <MenuItem  onClick={()=>navigate("/product/new")}>
+                {role=="admin"?<MenuItem  onClick={()=>navigate("/product/new")}>
                   <Typography textAlign="center">Add Products</Typography>
+                </MenuItem>:""}
+                <MenuItem  onClick={()=>navigate(`/orders/${role}/${id}`)}>
+                  <Typography textAlign="center">{role=="user"?"Cart":"Orders"}</Typography>
                 </MenuItem>
-                <MenuItem  onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">Cart</Typography>
+                <MenuItem  onClick={()=>navigate("/product/pie")}>
+                  <Typography textAlign="center">Analysis</Typography>
                 </MenuItem>
-              
-                <MenuItem  onClick={handleCloseNavMenu}>
+                {role=="user"?<MenuItem  onClick={()=>navigate(`/myorders/${role}/${id}`)}>
                   <Typography textAlign="center">MyOrders</Typography>
-                </MenuItem>
-              
+                </MenuItem>:""}
+                
             </Menu>
           </Box>
         
@@ -186,7 +188,15 @@ function HeaderComponent() {
                 My Orders
                 </Tooltip>
               </Button>:""}
-            
+              {role=="admin"?<Button
+                
+                onClick={()=>navigate("/product/pie")}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                <Tooltip title="Add A New Product" arrow>
+                Analysis
+                </Tooltip>
+              </Button>:""}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>

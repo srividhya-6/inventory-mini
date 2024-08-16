@@ -54,7 +54,30 @@ export default function MyOrdersComponent() {
           })
             
     }, []);
-    
+    function cancelOrder(oid){
+        let r=confirm("Do you want to cancel this order ?")
+        if(r){
+        const orderToDelete=orders.find((o)=>o._id==oid);
+        orderToDelete.items.map((p)=>{
+            axios.get(`http://localhost:8082/api/products/${p.productId}`).then(res=>{
+                let pro=res.data;
+                console.log(pro)
+                pro.quantity=p.quantity+pro.quantity;
+                axios.put(`http://localhost:8082/api/products/${p.productId}`,pro).then(res=>{
+
+                })
+            })
+        })
+        axios.delete(`http://localhost:8082/api/orders/${oid}`).then(res=>{
+            axios.get(`http://localhost:8082/api/myorders/${id}`)
+            .then(response => {
+                console.log(response.data);
+                setOrders(response.data);
+            })
+          
+        })
+    }
+    }
     
     return (
       
@@ -65,7 +88,7 @@ export default function MyOrdersComponent() {
         <ToastContainer/>
         {orders.length!=0?
         <div>
-            {orders.map((order)=>(
+            {orders.sort((a,b)=> new Date(b.orderDate) - new Date(a.orderDate)).map((order)=>(
             <TableContainer component={Paper}>
                 <p style={{fontSize:20}}>Order ID : {order._id}</p>
                 
@@ -101,19 +124,27 @@ export default function MyOrdersComponent() {
                     </TableBody>
                 </Table><br />
                 <div style={{borderBlockStyle:"dashed",borderWidth:1.5,margin:3,padding:3,borderBlockColor:"black"}}>
+                {order.status!="accepted" && order.status!="delivered" && order.status!="canceled"?<Button variant="contained" className="btn" style={{textAlign:"center",backgroundColor:"red",float:"right"}} onClick={()=>cancelOrder(order._id)}>Calcel Order</Button>:
+                <div style={{float:"right"}}>
+                   {order.status=="accepted"?<h4 style={{color:"orange"}}>Your order got accepted</h4>:
+                   order.status=="delivered"?<h4 style={{color:"green"}}>Delivered successfully</h4>:
+                   <h4 style={{color:"red"}}>sorry , your order got canceled</h4>}
+                </div>}
+            
                 <p>Total Price : {order.totalPrice.toFixed(2)}</p>
                 <p>Status : {order.status}</p>
                 <p>Date of Order Placed : {order.orderDate}</p>
+                <p>Delivery Address : {order.address}</p>
                 <br></br>
                 </div>
                 <hr></hr>
-                <br /><br />
+                <br />
             </TableContainer>
             ))}
             
                         {/* <h3>Total Amount : {(orders.totalPrice).toFixed(2)}</h3> */}
             
-            </div>:<div><img src={emptycart} style={{position:"relative",left:500}}></img></div>}
+            </div>:<h3 style={{height:500,textAlign:"center"}}>--No Orders Yet-- </h3>}
             <FooterComponent></FooterComponent>
         </div>
     );

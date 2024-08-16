@@ -40,6 +40,7 @@ export default function OrdersComponent() {
     const navigate = useNavigate();
     const [orders, setOrders] = useState({items:[],totalPrice:0});
     const [product,setProducts]=useState([]);
+    const [address,setAddress]=useState("");
     let {id}=useParams()
     useEffect(() => {
       axios.get("http://localhost:8082/api/products").then(response=> {
@@ -50,6 +51,7 @@ export default function OrdersComponent() {
             .then(response => {
                 console.log(response.data);
                 setOrders(response.data);
+                setAddress(response.data.address)
             })
           })
             
@@ -116,10 +118,19 @@ export default function OrdersComponent() {
             })
           })
     }
+    function updateAddress(e){
+      e.preventDefault()
+      setAddress(e.target.value)
+      
+    }
+    function addressUpdated(e){
+      alert("address updated successfully !!")
+    }
     function placeOrder(){
       axios.get(`http://localhost:8082/api/orders/${id}`).then(res=>{
         let order=res.data;
-        let oid=order._id
+        let oid=order._id;
+        order.address=address;
         order.status="order placed";
         product.quantity=product.quantity+1
             axios.put(`http://localhost:8082/api/orders/${oid}`,order).then(res=>{ 
@@ -130,6 +141,7 @@ export default function OrdersComponent() {
                   items:[],
                   totalPrice:0,
                   status:"place order",
+                  address:address,
                   orderDate: new Date().toLocaleDateString(),
                   
               }
@@ -184,6 +196,9 @@ export default function OrdersComponent() {
                     </TableBody>
                 </Table>
             </TableContainer><br /><br />
+            
+            <textarea class="form-textarea" name="address"  type="text" value={address} onChange={updateAddress}></textarea>&nbsp;&nbsp;<Button variant="contained" size="small" type='submit' onClick={addressUpdated} className="btn">Edit</Button><br />
+                       
                         <h4>Total Amount : {(orders.totalPrice).toFixed(2)} INR</h4>
             <Button variant="contained" className="btn" style={{textAlign:"center"}} onClick={placeOrder}>Place Order</Button><br /><br />
             </div>

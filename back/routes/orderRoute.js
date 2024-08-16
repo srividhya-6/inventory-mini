@@ -20,22 +20,30 @@ route.get("/api/orders",async (req,res)=>{
     //         })
     //     }
     //     else{
-            let orders=await order.find({status:"order placed"});
+            let orders=await order.find({status:{$ne:"place order"}});
             res.send(orders)
     //     }
     // })
     
     
 })
+route.get("/api/getorder/:id",async (req,res)=>{
+    
+    let o=await order.find({_id:req.params.id,status:{$ne:"place order"}});
+    res.send(o[0])   
+
+})
+
 route.get("/api/orders/:id",async (req,res)=>{
     
             let o=await order.find({userId:req.params.id,status:"place order"});
             res.send(o[0])   
     
 })
+
 route.get("/api/myorders/:id",async (req,res)=>{
     
-            let o=await order.find({userId:req.params.id,status:"order placed"});
+            let o=await order.find({userId:req.params.id,status:{$ne:"place order"}});
             res.send(o)   
     
 })

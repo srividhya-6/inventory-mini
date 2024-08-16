@@ -31,6 +31,10 @@ export default function LoginComponent(){
       
     function validateUser(e){
         e.preventDefault()
+         if(!user.email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)){
+            alert("enter valid email")
+            return;
+          }
         axios.post("http://localhost:8082/login",user).then(response=>
          {
             let res=response.data;
@@ -63,7 +67,7 @@ export default function LoginComponent(){
             <h2>Login</h2>
             <div class="input-group">
                 <label for="email">Email</label>
-                <input type="text" id="email" name="email" onChange={updateUser} value={user.email} required/>
+                <input type="email" id="email" name="email" onChange={updateUser} value={user.email} required/>
             </div>
             <div class="input-group">
                 <label for="password">Password</label>

@@ -6,7 +6,8 @@ mongoose.connect("mongodb://localhost:27017/inventory").then(()=>{
 const productSchema=mongoose.Schema(
     {
         name:String,
-        
+        image:String,
+        location:String,
         description:String,
         price:Number,
         quantity:Number,

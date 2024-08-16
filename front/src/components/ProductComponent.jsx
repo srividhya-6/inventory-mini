@@ -81,6 +81,9 @@ export default function ProductComponent(){
               {product.description}
             </Typography>
             <Typography variant="body2" color="text.secondary">
+              {product.location}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
               Category : {product.category}
             </Typography>
             <Typography variant="body2" color="text.secondary">

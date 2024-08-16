@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import "./login.css"
 export default function SignupComponent(){
     
-    let [user,setUser]=useState({});
+    let [user,setUser]=useState({role:"user"});
 let navigate=useNavigate()
    function updateUser(e){
     e.preventDefault();
@@ -19,8 +19,12 @@ let navigate=useNavigate()
    }
    function addUser(e){
     e.preventDefault()
-    if (!user.username || !user.email || !user.password || !user.role) {
+    if (!user.username || !user.email || !user.password || !user.role || !user.address) {
         alert('All fields are required');
+        return;
+      }
+      else if(!user.email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)){
+        alert("enter valid email")
         return;
       }
     axios.post("http://localhost:8082/signup",user).then(response=>
@@ -38,9 +42,9 @@ let navigate=useNavigate()
             userId:u._id,
             items:[],
             totalPrice:0,
-            status:"no orders placed",
-            orderDate: new Date().toLocaleDateString(),
-            
+            status:"place order",
+            address:u.address,
+            orderDate: new Date().toLocaleDateString(),  
         }
         axios.post("http://localhost:8082/api/orders",order).then(res=>{
             navigate(`/login`)
@@ -62,7 +66,7 @@ let navigate=useNavigate()
             </div>
             <div class="input-group">
                 <label for="email">Email</label>
-                <input type="text" id="email" name="email" onChange={updateUser} value={user.email} required/>
+                <input type="email" id="email" name="email" onChange={updateUser} value={user.email} required/>
             </div>
             
             <div class="input-group">
@@ -70,8 +74,12 @@ let navigate=useNavigate()
                 <input type="password" id="password" name="password" onChange={updateUser} value={user.password} required/>
             </div>
             <div class="input-group">
+                <label for="address">Address</label>
+                <textarea type="text" id="address" name="address" onChange={updateUser} value={user.address} required/>
+            </div>
+            <div class="input-group">
                 <label for="role">Role</label>
-                <input type="text" id="role" name="role" onChange={updateUser} value={user.role} required/>
+                <input type="text" id="role" name="role"  value="user" required/>
             </div>
             <div class="input-group">
                 <label for="profile">Profile URL</label>
