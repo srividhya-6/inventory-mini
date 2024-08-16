@@ -60,12 +60,8 @@ export default function ProductComponent(){
         axios.get(`http://localhost:8082/api/orders/${uid}`).then(res=>{
           let order=res.data;
           oid=order._id
-<<<<<<< HEAD
-
-=======
           console.log(order);
           
->>>>>>> 99a7522762b65b042459f6c16db90c21fb00d188
           let r=order.items.find(p=>p.productId==id)
           if(r){
             r.quantity=r.quantity+1;
@@ -99,44 +95,6 @@ export default function ProductComponent(){
        <div className='products'>
        {products.length!=0?products.map((p) => (
         
-<<<<<<< HEAD
-       {products.length!=0?<TableContainer component={Paper}>
-              <Table sx={{ minWidth: 700 }} aria-label="customized table">
-                  <TableHead>
-                      <TableRow className='tablehead'>
-                          <StyledTableCell align="left">ProductId</StyledTableCell>
-                          <StyledTableCell align="left">Name</StyledTableCell>
-                          <StyledTableCell align="left">image</StyledTableCell>
-                          <StyledTableCell align="left">Category</StyledTableCell>
-                          <StyledTableCell align="left">Description</StyledTableCell>
-                          <StyledTableCell align="left">Price</StyledTableCell>
-                          <StyledTableCell align="left">Quantity</StyledTableCell>   
-                          <StyledTableCell align="left">Add Cart</StyledTableCell>   
-                      </TableRow>
-                  </TableHead>
-                  <TableBody>
-                      {products.map((p) => (
-                           <Tooltip title="Double click to view the Product" arrow>
-                          <StyledTableRow onDoubleClick={()=>navigate(`/products/view/${p._id}`)}>
-                              <StyledTableCell component="th" scope="row">
-                                  {p._id}
-                              </StyledTableCell>
-                              <StyledTableCell align="left">{p.name}</StyledTableCell>   
-                              <StyledTableCell align="left"><img src={p.image} width={80} alt={p.name}/></StyledTableCell> 
-                              <StyledTableCell align="left">{p.category}</StyledTableCell>   
-                              <StyledTableCell align="left">{p.description}</StyledTableCell>   
-                              <StyledTableCell align="left">{p.price}</StyledTableCell>   
-                              <StyledTableCell align="left">{p.quantity}</StyledTableCell>   
-                              <StyledTableCell align="left">{p.quantity>0 ? <Button variant="contained" size="small" type='submit' onClick={()=>addProduct(p._id)} className='btn'>add cart</Button>:"nostock"}</StyledTableCell>   
-                          </StyledTableRow>
-                          </Tooltip>
-                      ))}
-                  </TableBody>
-              </Table>
-          </TableContainer>:<div><img src={noproduct} style={{position:"relative",left:500}}></img></div>}<br /><br />
-          {add?<Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
-  Product Added Successfully
-=======
         <Card className='product' sx={{ maxWidth: 345 }} >
         {p.image?<CardMedia
             component="img"
@@ -172,7 +130,6 @@ export default function ProductComponent(){
        
        {add?<Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
   Product Added Scuuessfully
->>>>>>> 99a7522762b65b042459f6c16db90c21fb00d188
 </Alert>:""}
        
        
