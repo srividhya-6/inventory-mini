@@ -17,7 +17,6 @@ const orderSchema=mongoose.Schema(
                 type:mongoose.Schema.Types.ObjectId,
                 ref:"user"
             },
-    
         items:[itemsSchema],
         totalPrice:Number,
         status:String,

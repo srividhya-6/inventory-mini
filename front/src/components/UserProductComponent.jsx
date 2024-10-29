@@ -59,17 +59,31 @@ export default function ProductComponent(){
         let product=re.data;
         axios.get(`http://localhost:8082/api/orders/${uid}`).then(res=>{
           let order=res.data;
-          oid=order._id
-          console.log(order);
-          
-          let r=order.items.find(p=>p.productId==id)
-          if(r){
-            r.quantity=r.quantity+1;
+
+          console.log('orders:' + order);
+          if(order){
+            oid=order._id
+            console.log(order);
+            let r = ''
+            if(order.items)
+              r=order.items.find(p=>p.productId==id)
+            if(r){
+              r.quantity=r.quantity+1;
+            }
+            else{
+
+              console.log(order)
+              order.items.push({productId:id,quantity:1})
+            }
           }
           else{
+            if (!order || typeof order !== 'object') {
+              order = { items: [] };
+            }
             order.items.push({productId:id,quantity:1})
           }
-          order.totalPrice=order.totalPrice+product.price;
+          order.userId = id;
+          order.totalPrice = order.totalPrice+product.price;
           order.status="place order"
           axios.put(`http://localhost:8082/api/orders/${oid}`,order).then(res=>{
             
@@ -85,8 +99,6 @@ export default function ProductComponent(){
       })
     }
     return(
-
-
       <>
         <HeaderComponent></HeaderComponent>
         <ToastContainer />

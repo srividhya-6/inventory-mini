@@ -46,7 +46,6 @@ export default function NewProductComponent(){
     function addProduct(e){
         e.preventDefault()
         const formData = new FormData();
-         formData.append('image', file);
          if (!product.name || !product.description || !product.price || !product.quantity || !product.category || !product.image || !product.location) {
             notify();
             return;

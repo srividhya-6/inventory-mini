@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useState, useEffect } from "react";
 import { Cell, PieChart, Pie, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import './PieCharts.css';  // Import the CSS file
+import HeaderComponent from "./header";
+import FooterComponent from "./footer";
 const orderStaus = [
   { staus: 'delivered', quan: 40 },
   { staus: 'Pending', quan: 50 },
@@ -26,6 +28,8 @@ function DataAnalysis() {
         setProducts(response.data)
   })},[])
   return (
+    <>
+     <HeaderComponent></HeaderComponent>
     <div className="analysis-container">
       <h1 className="page-title">Data Analysis Dashboard</h1>
       <h2 className="chart-title">Stock Present</h2>  
@@ -53,6 +57,8 @@ function DataAnalysis() {
         </PieChart>
       </ResponsiveContainer>
     </div>
+    <FooterComponent></FooterComponent>
+    </>
   );
 }
 
