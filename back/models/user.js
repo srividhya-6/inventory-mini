@@ -1,5 +1,5 @@
 const mongoose=require("mongoose")
-mongoose.connect("mongodb://localhost:27017/inventory").then(()=>{
+mongoose.connect("mongodb+srv://srividhyadhinne:srividhya@inventorycluster.pmwtw.mongodb.net/?retryWrites=true&w=majority&appName=inventoryCluster").then(()=>{
     console.log("connected successfully")
 })
 
