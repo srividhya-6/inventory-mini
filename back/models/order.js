@@ -24,5 +24,4 @@ const orderSchema=mongoose.Schema(
         orderDate:String
     }
 )
-
 module.exports=mongoose.model("order",orderSchema)
