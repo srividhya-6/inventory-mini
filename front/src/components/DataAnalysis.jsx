@@ -22,10 +22,16 @@ const data = [
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 function DataAnalysis() {
   let [products,setProducts]=useState([]);
+  let [orderStaus,setOrderStatus]=useState([]);
   useEffect(()=>{
     axios.get("http://localhost:8082/api/products").then(response=> {
         console.log(response.data);
-        setProducts(response.data)
+        setProducts(response.data);
+  })},[])
+  useEffect(()=>{
+    axios.get("http://localhost:8082/api/products").then(response=> {
+        console.log(response.data);
+        setOrderStatus(response.data)
   })},[])
   return (
     <>
