@@ -5,13 +5,14 @@ const mongoose=require("mongoose");
 const productRoute=require("./routes/productRoute")
 const orderRoute=require("./routes/orderRoute")
 const {route:userRoute,verifyToken}=require("./routes/userRoute")
-app.use(cors());
 
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:5173');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    next();
-  });
+
+app.use(cors({
+    origin: 'http://localhost:5173', // Allow only the frontend origin
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify allowed HTTP methods
+    allowedHeaders: ['Content-Type', 'Authorization'], // Specify allowed headers
+}));
+
 app.use(userRoute);
 app.use(orderRoute);
 app.use(productRoute)
