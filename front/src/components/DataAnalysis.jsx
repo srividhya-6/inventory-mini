@@ -24,12 +24,12 @@ function DataAnalysis() {
   let [products,setProducts]=useState([]);
   let [orderStaus,setOrderStatus]=useState([]);
   useEffect(()=>{
-    axios.get("http://localhost:8082/api/products").then(response=> {
+    axios.get("https://inventory-mini.vercel.app/api/products").then(response=> {
         console.log(response.data);
         setProducts(response.data);
   })},[])
   useEffect(()=>{
-    axios.get("http://localhost:8082/api/products").then(response=> {
+    axios.get("https://inventory-mini.vercel.app/api/products").then(response=> {
         console.log(response.data);
         setOrderStatus(response.data)
   })},[])
