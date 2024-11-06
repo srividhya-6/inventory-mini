@@ -39,11 +39,11 @@ export default function AllOrdersComponent() {
     const [products,setProducts]=useState([]);
     
     useEffect(() => {
-        axios.get("http://localhost:8082/api/products").then(response=> {
+        axios.get("https://inventory-mini.vercel.app/api/products").then(response=> {
             console.log(response.data);
             setProducts(response.data)
           
-        axios.get(`http://localhost:8082/api/orders`)
+        axios.get(`https://inventory-mini.vercel.app/api/orders`)
             .then(response => {
                 console.log(response.data)
                 setOrders(response.data);
@@ -54,11 +54,11 @@ export default function AllOrdersComponent() {
             });
     }, []);
     function acceptOrder(id){
-        axios.get(`http://localhost:8082/api/getorder/${id}`).then(res=>{
+        axios.get(`https://inventory-mini.vercel.app/api/getorder/${id}`).then(res=>{
             let order=res.data;
             order.status="accepted";
-            axios.put(`http://localhost:8082/api/orders/${id}`,order).then(res=>{
-                axios.get(`http://localhost:8082/api/orders`)
+            axios.put(`https://inventory-mini.vercel.app/api/orders/${id}`,order).then(res=>{
+                axios.get(`https://inventory-mini.vercel.app/api/orders`)
                 .then(response => {
                 console.log(response.data)
                 setOrders(response.data);
@@ -67,11 +67,11 @@ export default function AllOrdersComponent() {
         })
     }
     function deliverOrder(id){
-        axios.get(`http://localhost:8082/api/getorder/${id}`).then(res=>{
+        axios.get(`https://inventory-mini.vercel.app/api/getorder/${id}`).then(res=>{
             let order=res.data;
             order.status="delivered";
-            axios.put(`http://localhost:8082/api/orders/${id}`,order).then(res=>{
-                axios.get(`http://localhost:8082/api/orders`)
+            axios.put(`https://inventory-mini.vercel.app/api/orders/${id}`,order).then(res=>{
+                axios.get(`https://inventory-mini.vercel.app/api/orders`)
                 .then(response => {
                 console.log(response.data)
                 setOrders(response.data);
@@ -82,11 +82,11 @@ export default function AllOrdersComponent() {
     function cancelOrder(id){
         let r=confirm("Do you want to cancel this order ?");
         if(r){
-        axios.get(`http://localhost:8082/api/getorder/${id}`).then(res=>{
+        axios.get(`https://inventory-mini.vercel.app/api/getorder/${id}`).then(res=>{
             let order=res.data;
             order.status="canceled";
-            axios.put(`http://localhost:8082/api/orders/${id}`,order).then(res=>{
-                axios.get(`http://localhost:8082/api/orders`)
+            axios.put(`https://inventory-mini.vercel.app/api/orders/${id}`,order).then(res=>{
+                axios.get(`https://inventory-mini.vercel.app/api/orders`)
                 .then(response => {
                 console.log(response.data)
                 setOrders(response.data);
