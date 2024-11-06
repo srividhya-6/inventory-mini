@@ -13,7 +13,7 @@ export default function EditUserComponent(){
     let {id}=useParams()
     useEffect(function userDetails(){
         console.log(id)
-        axios.get(`http://localhost:8082/user/${id}`).then(res=>
+        axios.get(`https://inventory-mini.vercel.app/user/${id}`).then(res=>
          {
             setUser(res.data)
          })
@@ -67,7 +67,7 @@ export default function EditUserComponent(){
       notify2()
       return;
     }
-    axios.put(`http://localhost:8082/user/${id}`,user).then(response=>
+    axios.put(`https://inventory-mini.vercel.app/user/${id}`,user).then(response=>
      {
         
         console.log(response.data);
