@@ -15,7 +15,7 @@ export default function EditProductComponent(){
     let { id } = useParams();
     let [product,setProduct]=useState({});
     useEffect(()=>{
-        axios.get(`http://localhost:8082/api/products/${id}`).then(res=>
+        axios.get(`https://inventory-mini.vercel.app/api/products/${id}`).then(res=>
             {
                console.log(res.data);
                setProduct(res.data)
@@ -47,7 +47,7 @@ export default function EditProductComponent(){
           notify();
           return;
       }
-        axios.put(`http://localhost:8082/api/products/${id}`,product).then(response=>
+        axios.put(`https://inventory-mini.vercel.app/api/products/${id}`,product).then(response=>
          {
             
             console.log(response.data);
