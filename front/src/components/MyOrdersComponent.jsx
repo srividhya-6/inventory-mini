@@ -42,11 +42,11 @@ export default function MyOrdersComponent() {
     const [product,setProducts]=useState([]);
     let {id}=useParams()
     useEffect(() => {
-      axios.get("http://localhost:8082/api/products").then(response=> {
+      axios.get("https://inventory-mini.vercel.app/api/products").then(response=> {
         console.log(response.data);
         setProducts(response.data)
       
-        axios.get(`http://localhost:8082/api/myorders/${id}`)
+        axios.get(`https://inventory-mini.vercel.app/api/myorders/${id}`)
             .then(response => {
                 console.log(response.data);
                 setOrders(response.data);
@@ -59,17 +59,17 @@ export default function MyOrdersComponent() {
         if(r){
         const orderToDelete=orders.find((o)=>o._id==oid);
         orderToDelete.items.map((p)=>{
-            axios.get(`http://localhost:8082/api/products/${p.productId}`).then(res=>{
+            axios.get(`https://inventory-mini.vercel.app/api/products/${p.productId}`).then(res=>{
                 let pro=res.data;
                 console.log(pro)
                 pro.quantity=p.quantity+pro.quantity;
-                axios.put(`http://localhost:8082/api/products/${p.productId}`,pro).then(res=>{
+                axios.put(`https://inventory-mini.vercel.app/api/products/${p.productId}`,pro).then(res=>{
 
                 })
             })
         })
-        axios.delete(`http://localhost:8082/api/orders/${oid}`).then(res=>{
-            axios.get(`http://localhost:8082/api/myorders/${id}`)
+        axios.delete(`https://inventory-mini.vercel.app/api/orders/${oid}`).then(res=>{
+            axios.get(`https://inventory-mini.vercel.app/api/myorders/${id}`)
             .then(response => {
                 console.log(response.data);
                 setOrders(response.data);
