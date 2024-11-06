@@ -21,7 +21,7 @@ app.use(productRoute)
 
 app.set(express.json())
 
-app.get("/",(req,res)=>{
+app.get("/api",(req,res)=>{
     res.send("home")
 })
 app.listen(8082,(req,res)=>{
