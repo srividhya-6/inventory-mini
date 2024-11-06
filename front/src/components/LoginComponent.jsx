@@ -35,7 +35,7 @@ export default function LoginComponent(){
             alert("enter valid email")
             return;
           }
-        axios.post("http://localhost:8082/login",user).then(response=>
+        axios.post("https://inventory-mini.vercel.app/login",user).then(response=>
          {
             let res=response.data;
             if(res==""){
