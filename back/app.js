@@ -20,9 +20,9 @@ app.use(orderRoute);
 app.use(productRoute)
 
 app.set(express.json())
-app.set("view engine","ejs");
+
 app.get("/",(req,res)=>{
-    res.render("home.ejs")
+    res.send("home")
 })
 app.listen(8082,(req,res)=>{
     console.log("listening to server")
