@@ -50,7 +50,7 @@ export default function NewProductComponent(){
             notify();
             return;
         }
-        axios.post("http://localhost:8082/api/products",product).then(response=>
+        axios.post("https://inventory-mini.vercel.app/api/products",product).then(response=>
          {
             console.log(response.data);
             navigate("/products")
