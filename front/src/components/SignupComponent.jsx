@@ -27,7 +27,7 @@ let navigate=useNavigate()
         alert("enter valid email")
         return;
       }
-    axios.post("http://localhost:8082/signup",user).then(response=>
+    axios.post("https://inventory-mini.vercel.app/signup",user).then(response=>
      {
         console.log(response.data)
         if(response.data=="")
@@ -46,7 +46,7 @@ let navigate=useNavigate()
             address:u.address,
             orderDate: new Date().toLocaleDateString(),  
         }
-        axios.post("http://localhost:8082/api/orders",order).then(res=>{
+        axios.post("https://inventory-mini.vercel.app/api/orders",order).then(res=>{
             navigate(`/login`)
         })
     }
