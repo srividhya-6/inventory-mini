@@ -22,7 +22,7 @@ app.use(productRoute)
 app.set(express.json())
 
 app.get("/",(req,res)=>{
-    res.send("home")
+    res.json("home")
 })
 app.listen(8082,(req,res)=>{
     console.log("listening to server")
