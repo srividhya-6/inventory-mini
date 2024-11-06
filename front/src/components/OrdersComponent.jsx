@@ -43,11 +43,11 @@ export default function OrdersComponent() {
     const [address,setAddress]=useState("");
     let {id}=useParams()
     useEffect(() => {
-      axios.get("http://localhost:8082/api/products").then(response=> {
+      axios.get("https://inventory-mini.vercel.app/api/products").then(response=> {
         console.log(response.data);
         setProducts(response.data)
       
-        axios.get(`http://localhost:8082/api/orders/${id}`)
+        axios.get(`https://inventory-mini.vercel.app/api/orders/${id}`)
             .then(response => {
                 console.log(response.data);
                 setOrders(response.data);
@@ -68,10 +68,10 @@ export default function OrdersComponent() {
       
       })};
     function addProduct(pid){
-        axios.get(`http://localhost:8082/api/products/${pid}`).then(res=>{
+        axios.get(`https://inventory-mini.vercel.app/api/products/${pid}`).then(res=>{
           let product=res.data;
           console.log(res.data);
-          axios.get(`http://localhost:8082/api/orders/${id}`).then(res=>{
+          axios.get(`https://inventory-mini.vercel.app/api/orders/${id}`).then(res=>{
             let order=res.data;
             if(!order)
             {
@@ -87,8 +87,8 @@ export default function OrdersComponent() {
            
             product.quantity=product.quantity-1
             
-            axios.put(`http://localhost:8082/api/products/${pid}`,product).then(res=>{
-                axios.put(`http://localhost:8082/api/orders/${oid}`,order).then(res=>{
+            axios.put(`https://inventory-mini.vercel.app/api/products/${pid}`,product).then(res=>{
+                axios.put(`https://inventory-mini.vercel.app/api/orders/${oid}`,order).then(res=>{
                     
                     setOrders(order)
                     
@@ -99,9 +99,9 @@ export default function OrdersComponent() {
         })
       }
     function subProduct(pid){
-        axios.get(`http://localhost:8082/api/products/${pid}`).then(res=>{
+        axios.get(`https://inventory-mini.vercel.app/api/products/${pid}`).then(res=>{
             let product=res.data;
-            axios.get(`http://localhost:8082/api/orders/${id}`).then(res=>{
+            axios.get(`https://inventory-mini.vercel.app/api/orders/${id}`).then(res=>{
               let order=res.data;
               let oid=order._id
               let r=order.items.find(p=>p.productId==pid)
@@ -114,8 +114,8 @@ export default function OrdersComponent() {
               order.totalPrice=order.totalPrice-product.price;
               
               product.quantity=product.quantity+1
-              axios.put(`http://localhost:8082/api/products/${pid}`,product).then(res=>{
-                  axios.put(`http://localhost:8082/api/orders/${oid}`,order).then(res=>{
+              axios.put(`https://inventory-mini.vercel.app/api/products/${pid}`,product).then(res=>{
+                  axios.put(`https://inventory-mini.vercel.app/api/orders/${oid}`,order).then(res=>{
                       console.log(order.items)
                       setOrders(order)
                 }
@@ -133,13 +133,13 @@ export default function OrdersComponent() {
       alert("address updated successfully !!")
     }
     function placeOrder(){
-      axios.get(`http://localhost:8082/api/orders/${id}`).then(res=>{
+      axios.get(`https://inventory-mini.vercel.app/api/orders/${id}`).then(res=>{
         let order=res.data;
         let oid=order._id;
         order.address=address;
         order.status="order placed";
         product.quantity=product.quantity+1
-            axios.put(`http://localhost:8082/api/orders/${oid}`,order).then(res=>{ 
+            axios.put(`https://inventory-mini.vercel.app/api/orders/${oid}`,order).then(res=>{ 
                 setOrders(order)
                 notify();
                 let newOrder={
@@ -151,7 +151,7 @@ export default function OrdersComponent() {
                   orderDate: new Date().toLocaleDateString(),
                   
               }
-              axios.post("http://localhost:8082/api/orders",newOrder).then(res=>{
+              axios.post("https://inventory-mini.vercel.app/api/orders",newOrder).then(res=>{
                   setOrders(res.data)
                  
               })
