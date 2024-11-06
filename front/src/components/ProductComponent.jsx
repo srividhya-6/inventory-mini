@@ -27,7 +27,7 @@ export default function ProductComponent(){
     let { id } = useParams();
     let [product,setProduct]=useState({});
     useEffect(()=>{
-        axios.get(`http://localhost:8082/api/products/${id}`).then(res=>
+        axios.get(`https://inventory-mini.vercel.app/api/products/${id}`).then(res=>
             {
                console.log(res.data);
                setProduct(res.data)
@@ -47,7 +47,7 @@ export default function ProductComponent(){
       function deleteProduct(id){
         let r=confirm("Do you want to delete ?");
         if(r==true){
-          axios.delete(`http://localhost:8082/api/products/${id}`).then(res=>{
+          axios.delete(`https://inventory-mini.vercel.app/api/products/${id}`).then(res=>{
               console.log(res.data);
               setTotal(total.filter((p)=>p._id!=id))
               setProduct(product.filter((p)=>p._id!=id))
