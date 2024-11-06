@@ -68,7 +68,7 @@ export default function AdminProductComponent(){
     let [products,setProducts]=useState([]);
     let [search,setSearch]=useState("");
     useEffect(function updateProducts(){
-        axios.get("http://localhost:8082/api/products").then(response=> {
+        axios.get("https://inventory-mini.vercel.app/api/products").then(response=> {
             console.log(response.data);
             setProducts(response.data)
           setTotal(response.data)})
@@ -87,7 +87,7 @@ export default function AdminProductComponent(){
     function deleteProduct(id){
       let r=confirm("Do you want to delete ?");
       if(r==true){
-        axios.delete(`http://localhost:8082/api/products/${id}`).then(res=>{
+        axios.delete(`https://inventory-mini.vercel.app/api/products/${id}`).then(res=>{
             console.log(res.data);
             setTotal(total.filter((p)=>p._id!=id))
             setProducts(products.filter((p)=>p._id!=id))
