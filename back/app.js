@@ -7,13 +7,13 @@ const orderRoute=require("./routes/orderRoute")
 const {route:userRoute,verifyToken}=require("./routes/userRoute")
 
 
-app.use(cors());
+app.use(cors({
+    origin:["https://deploy-mern-1whq.vercel.app"],
+    methods:["POST","GET"],
+    credentials:true
+}));
 
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:5173');
-     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    next();
-  });
+
 
 app.use(userRoute);
 app.use(orderRoute);
