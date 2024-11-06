@@ -11,7 +11,7 @@ const AccountComponent = () => {
     let {id}=useParams()
     useEffect(function userDetails(){
         console.log(id)
-        axios.get(`http://localhost:8082/user/${id}`).then(res=>
+        axios.get(`https://inventory-mini.vercel.app/user/${id}`).then(res=>
          {
             console.log("ase"+res.data)
             setUser(res.data)
